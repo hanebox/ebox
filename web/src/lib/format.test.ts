@@ -35,6 +35,6 @@ describe('formatUptime', () => {
     expect(formatUptime(90)).toBe('1m')
     expect(formatUptime(3700)).toBe('1h 1m')
     expect(formatUptime(90061)).toBe('1d 1h')
-    expect(formatUptime(0)).toBe('—')
+    expect(formatUptime(0)).toBe('–')
   })
 })

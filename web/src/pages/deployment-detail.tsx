@@ -97,18 +97,18 @@ export function DeploymentDetailPage() {
               <div className="flex flex-col gap-0.5">
                 <span className="text-2xs font-medium text-subtle">Commit</span>
                 <span className="font-mono text-xs text-foreground">
-                  {data.commit ? data.commit.slice(0, 7) : '—'}
+                  {data.commit ? data.commit.slice(0, 7) : '–'}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-2xs font-medium text-subtle">Message</span>
                 <span className="max-w-md truncate text-xs text-foreground">
-                  {data.commit_message || '—'}
+                  {data.commit_message || '–'}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-2xs font-medium text-subtle">Image</span>
-                <span className="font-mono text-xs text-foreground">{data.image_tag || '—'}</span>
+                <span className="font-mono text-xs text-foreground">{data.image_tag || '–'}</span>
               </div>
               <div className="flex flex-col gap-0.5">
                 <span className="text-2xs font-medium text-subtle">Started</span>
@@ -119,7 +119,7 @@ export function DeploymentDetailPage() {
               <div className="flex flex-col gap-0.5">
                 <span className="text-2xs font-medium text-subtle">Duration</span>
                 <span className="text-xs text-foreground">
-                  {data.duration_ms ? `${Math.round(data.duration_ms / 1000)}s` : '—'}
+                  {data.duration_ms ? `${Math.round(data.duration_ms / 1000)}s` : '–'}
                 </span>
               </div>
             </CardContent>

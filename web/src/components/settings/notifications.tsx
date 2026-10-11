@@ -301,7 +301,7 @@ export function NotificationsSection() {
           <div className="flex gap-2">
             <Button variant="secondary" size="sm" onClick={() => setBroadcastOpen(true)}>
               <IconSend aria-hidden className="size-3.5" />
-              IconSend message
+              Send message
             </Button>
             <Button
               variant="primary"
@@ -469,7 +469,7 @@ export function NotificationsSection() {
               Cancel
             </Button>
             <Button type="submit" variant="primary" loading={broadcast.isPending}>
-              IconSend
+              Send
             </Button>
           </div>
         </form>

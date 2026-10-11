@@ -338,9 +338,9 @@ export function ServicesPage() {
                     <TableCell>
                       <Badge variant={item.state === 'running' ? 'success' : 'outline'}>{item.state}</Badge>
                     </TableCell>
-                    <TableCell className="font-mono text-2xs text-muted">{item.image ?? '—'}</TableCell>
+                    <TableCell className="font-mono text-2xs text-muted">{item.image ?? '–'}</TableCell>
                     <TableCell className="font-mono text-2xs text-muted">
-                      {(item.ports ?? []).join(', ') || '—'}
+                      {(item.ports ?? []).join(', ') || '–'}
                     </TableCell>
                   </TableRow>
                 )),

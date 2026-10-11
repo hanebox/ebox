@@ -289,10 +289,10 @@ export function SourceDetailPage() {
                     <span className="font-mono">{source.data.app_id}</span>
                   </InfoRow>
                   <InfoRow label="Slug">
-                    <span className="font-mono">{source.data.app_slug || '—'}</span>
+                    <span className="font-mono">{source.data.app_slug || '–'}</span>
                   </InfoRow>
                   <InfoRow label="Installation">
-                    <span className="font-mono">{source.data.installation_id || '—'}</span>
+                    <span className="font-mono">{source.data.installation_id || '–'}</span>
                   </InfoRow>
                   <InfoRow label="Webhook URL">
                     <Copyable value={webhookUrl} className="max-w-md" />

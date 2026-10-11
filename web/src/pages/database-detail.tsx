@@ -30,7 +30,7 @@ function CopyRow({ label, value, mono = true }: { label: string; value: string; 
     <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface-raised px-3 py-2">
       <div className="flex min-w-0 flex-col">
         <span className="text-2xs font-medium text-subtle">{label}</span>
-        <span className={`truncate text-xs text-foreground ${mono ? 'font-mono' : ''}`}>{value || '—'}</span>
+        <span className={`truncate text-xs text-foreground ${mono ? 'font-mono' : ''}`}>{value || '–'}</span>
       </div>
       <Button
         variant="ghost"
@@ -107,7 +107,7 @@ export function DatabaseDetailPage() {
   if (database.isError || !database.data) {
     return (
       <Card className="p-6">
-        <p className="text-sm text-danger">IconDatabase not found.</p>
+        <p className="text-sm text-danger">Database not found.</p>
       </Card>
     )
   }

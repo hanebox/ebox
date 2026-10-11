@@ -70,7 +70,7 @@ function DatabaseCard({ database }: { database: DatabaseResponse }) {
       </div>
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-2xs text-subtle">
-        <span className="font-mono">{database.runtime?.container_name ?? '—'}</span>
+        <span className="font-mono">{database.runtime?.container_name ?? '–'}</span>
         {database.port > 0 ? <span className="font-mono">host port {database.port}</span> : <span>internal only</span>}
         <span>{formatRelative(database.created_at)}</span>
       </div>

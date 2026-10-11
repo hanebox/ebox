@@ -81,7 +81,7 @@ export function DatabaseBackups({ databaseId }: { databaseId: string; databaseNa
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setHistoryUUID(backup.uuid)}>
               <IconHistory aria-hidden className="size-3.5" />
-              IconHistory
+              History
             </Button>
           </div>
         </div>

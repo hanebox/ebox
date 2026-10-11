@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# ebox installer — rich terminal UI, requirement preflight, and install-time
+# ebox installer: requirement preflight, terminal UI, and install-time
 # admin account creation.
 #
 #   curl -fsSL https://raw.githubusercontent.com/buildandbuild/ebox/main/installer/install.sh | sudo bash
@@ -106,7 +106,7 @@ Options:
   --admin-name NAME         admin display name (for unattended installs)
   --admin-email EMAIL       admin email, used to sign in
   --admin-password PASS     admin password, at least 10 characters
-                            (prefer the prompt — flags end up in shell history)
+                            (prefer the prompt; flags end up in shell history)
   --no-color                plain output (also honours NO_COLOR)
   --force                   no confirmations; continue past failed checks
   -h, --help                this help

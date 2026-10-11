@@ -24,7 +24,7 @@ export function formatPercent(value: number, decimals = 1): string {
 
 export function formatUptime(seconds: number): string {
   if (!Number.isFinite(seconds) || seconds <= 0) {
-    return '—'
+    return '–'
   }
 
   const days = Math.floor(seconds / 86400)
@@ -44,7 +44,7 @@ export function formatUptime(seconds: number): string {
 export function formatDateTime(value: string | number | Date): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) {
-    return '—'
+    return '–'
   }
 
   return new Intl.DateTimeFormat(undefined, {
@@ -56,7 +56,7 @@ export function formatDateTime(value: string | number | Date): string {
 export function formatRelative(value: string | number | Date): string {
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) {
-    return '—'
+    return '–'
   }
 
   const seconds = Math.round((Date.now() - date.getTime()) / 1000)

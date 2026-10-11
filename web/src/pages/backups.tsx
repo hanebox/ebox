@@ -86,7 +86,7 @@ function BackupCard({ backup }: { backup: BackupRecord }) {
         </Button>
         <Button variant="ghost" size="sm" onClick={() => setHistoryOpen(true)}>
           <IconHistory aria-hidden className="size-3.5" />
-          IconHistory
+          History
         </Button>
         <Button variant="ghost" size="sm" aria-label="Delete backup" onClick={() => remove.mutate()}>
           <IconTrash aria-hidden className="size-3.5" />

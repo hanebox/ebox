@@ -253,7 +253,7 @@ export function ApplicationDetailPage() {
                       {runtime?.image ? (
                         <Copyable value={runtime.image} />
                       ) : (
-                        <span className="text-subtle">—</span>
+                        <span className="text-subtle">–</span>
                       )}
                     </MetaRow>
                     <MetaRow label="Port">{data.config.expose_port}</MetaRow>
@@ -272,7 +272,7 @@ export function ApplicationDetailPage() {
                       {data.deploy_url ? (
                         <Copyable value={window.location.origin + data.deploy_url} className="max-w-md" />
                       ) : (
-                        <span className="text-subtle">—</span>
+                        <span className="text-subtle">–</span>
                       )}
                     </MetaRow>
                   </CardContent>
@@ -317,7 +317,7 @@ export function ApplicationDetailPage() {
                                 ) : null}
                               </TableCell>
                               <TableCell className="font-mono text-2xs text-muted">
-                                {container?.name ?? '—'}
+                                {container?.name ?? '–'}
                               </TableCell>
                               <TableCell>
                                 <Badge variant={container?.state === 'running' ? 'success' : 'outline'}>
@@ -328,7 +328,7 @@ export function ApplicationDetailPage() {
                                 {container?.image ?? service.image ?? '(build)'}
                               </TableCell>
                               <TableCell className="font-mono text-2xs text-muted">
-                                {service.ports.join(', ') || '—'}
+                                {service.ports.join(', ') || '–'}
                               </TableCell>
                             </TableRow>
                           )
@@ -355,7 +355,7 @@ export function ApplicationDetailPage() {
                   {latest ? (
                     <div className="flex flex-wrap items-center gap-3 text-xs text-muted">
                       <DeploymentStatusBadge status={latest.status} />
-                      <span className="font-mono">{latest.commit ? latest.commit.slice(0, 7) : '—'}</span>
+                      <span className="font-mono">{latest.commit ? latest.commit.slice(0, 7) : '–'}</span>
                       <span>{latest.commit_message || 'no commit message'}</span>
                       <span>{formatRelative(latest.created_at)}</span>
                       {latest.error ? <span className="text-danger">{latest.error}</span> : null}
@@ -433,8 +433,8 @@ export function ApplicationDetailPage() {
                       )}
                       <span className="text-sm font-medium text-foreground">Configuration</span>
                     </div>
-                    <MetaRow label="Repository">{data.repository || '—'}</MetaRow>
-                    <MetaRow label="Branch">{data.branch || '—'}</MetaRow>
+                    <MetaRow label="Repository">{data.repository || '–'}</MetaRow>
+                    <MetaRow label="Branch">{data.branch || '–'}</MetaRow>
                     <MetaRow label="Build pack">{data.build_pack}</MetaRow>
                     {data.config.dockerfile_path ? (
                       <MetaRow label="Dockerfile">{data.config.dockerfile_path}</MetaRow>

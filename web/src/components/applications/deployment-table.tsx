@@ -17,7 +17,7 @@ import { cn } from '@/lib/cn'
 
 function formatDuration(milliseconds: number): string {
   if (!milliseconds) {
-    return '—'
+    return '–'
   }
 
   const seconds = Math.round(milliseconds / 1000)
@@ -90,7 +90,7 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
                         {deployment.application_name || 'application'}
                       </Link>
                     ) : (
-                      <span className="text-muted">{deployment.application_name || '—'}</span>
+                      <span className="text-muted">{deployment.application_name || '–'}</span>
                     )}
                   </TableCell>
                 ) : null}
@@ -101,7 +101,7 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
                   {deployment.commit ? (
                     <span className="font-mono">{deployment.commit.slice(0, 7)}</span>
                   ) : (
-                    <span className="text-subtle">—</span>
+                    <span className="text-subtle">–</span>
                   )}
                   {deployment.commit_message ? ` · ${deployment.commit_message}` : ''}
                 </TableCell>

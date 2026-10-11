@@ -121,7 +121,7 @@ export function SourcesPage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title="Sources"
-        description="Connect your git providers once, deploy anywhere."
+        description="Connect a git provider, then deploy from any of its repositories."
         actions={
           <>
             <Button

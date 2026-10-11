@@ -636,7 +636,7 @@ export function NewApplicationPage() {
       {sources.data && sources.data.length > 0 ? (
         <p className="flex items-center gap-2 text-xs text-subtle">
           <IconWorld aria-hidden className="size-3.5" />
-          Domains are routed through Traefik once the proxy milestone is wired up.
+          Domains are routed through Traefik once the proxy is running.
         </p>
       ) : null}
     </div>

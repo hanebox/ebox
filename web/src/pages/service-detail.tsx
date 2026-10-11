@@ -216,7 +216,7 @@ export function ServiceDetailPage() {
                       </TableCell>
                       <TableCell className="font-mono text-2xs text-muted">{container.image}</TableCell>
                       <TableCell className="font-mono text-2xs text-muted">
-                        {(container.ports ?? []).join(', ') || '—'}
+                        {(container.ports ?? []).join(', ') || '–'}
                       </TableCell>
                     </TableRow>
                   ))}

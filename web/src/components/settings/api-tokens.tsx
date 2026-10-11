@@ -207,7 +207,7 @@ export function ApiTokensSection() {
           }
         }}
         title="Token created"
-        description="Copy it now — it will not be shown again."
+        description="Copy it now. It will not be shown again."
         size="md"
       >
         <div className="flex flex-col gap-4">

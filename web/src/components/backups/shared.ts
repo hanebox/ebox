@@ -8,7 +8,7 @@ export const schedulePresets = [
 
 export function formatBytes(bytes: number): string {
   if (bytes <= 0) {
-    return '—'
+    return '–'
   }
 
   const units = ['B', 'kB', 'MB', 'GB', 'TB']

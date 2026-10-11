@@ -63,7 +63,7 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
           {runs.map((run) => (
             <TableRow key={run.id}>
               <TableCell className="text-xs text-foreground">
-                {run.started_at ? formatDateTime(run.started_at) : '—'}
+                {run.started_at ? formatDateTime(run.started_at) : '–'}
               </TableCell>
               <TableCell>
                 <Badge variant={runStatusVariant(run.status)}>{run.status}</Badge>
@@ -75,10 +75,10 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
               </TableCell>
               <TableCell className="font-mono text-2xs text-muted">{formatBytes(run.size_bytes)}</TableCell>
               <TableCell className="font-mono text-2xs text-muted">
-                {run.duration_ms ? `${(run.duration_ms / 1000).toFixed(1)}s` : '—'}
+                {run.duration_ms ? `${(run.duration_ms / 1000).toFixed(1)}s` : '–'}
               </TableCell>
               <TableCell className="max-w-[14rem] truncate font-mono text-2xs text-subtle">
-                {run.file ? run.file.split('/').pop() : '—'}
+                {run.file ? run.file.split('/').pop() : '–'}
               </TableCell>
               <TableCell>
                 <div className="flex justify-end gap-1">

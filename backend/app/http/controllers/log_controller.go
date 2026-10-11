@@ -159,7 +159,7 @@ func (c *LogController) Stream(ctx contractshttp.Context, resourceType string) c
 		flusher.Flush()
 	}
 
-	send(fmt.Sprintf("\u001b[90m— following %s —\u001b[0m", name))
+	send(fmt.Sprintf("\u001b[90mfollowing %s\u001b[0m", name))
 
 	err := docker.Default().StreamLogLines(ctx.Request().Origin().Context(), containerID, parseTail(ctx, 200), true, send)
 	if err != nil && ctx.Request().Origin().Context().Err() == nil {

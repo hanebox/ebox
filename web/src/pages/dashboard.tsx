@@ -204,46 +204,34 @@ export function DashboardPage() {
       </div>
 
       <Card className="p-4">
-        <CardTitle>Roadmap</CardTitle>
+        <CardTitle>What this panel does</CardTitle>
         <CardDescription className="mt-1">
-          The panel is being built in milestones. What is live today and what is next:
+          Everything listed here is running on this server.
         </CardDescription>
         <ul className="mt-3 flex flex-col divide-y divide-border">
-          <RoadmapRow
-            milestone="M0"
-            done
-            title="Foundation"
-            description="Auth, sessions, live host metrics, event stream, settings."
+          <FeatureRow
+            title="Applications and deployments"
+            description="Git sources, Dockerfile, static, image and compose build packs, with live build logs."
           />
-          <RoadmapRow
-            milestone="M1"
-            done
-            title="Projects & Sources"
-            description="Projects, GitHub App sources, repository and branch pickers."
+          <FeatureRow
+            title="Databases and services"
+            description="Postgres, MySQL, MariaDB, Redis, MongoDB and compose stacks."
           />
-          <RoadmapRow
-            milestone="M2"
-            done
-            title="Applications & Deployments"
-            description="Dockerfile / Static / Image deploys with live build logs."
+          <FeatureRow
+            title="Logs, terminals and proxy"
+            description="Container logs, browser shells, and Traefik routes with automatic certificates."
           />
-          <RoadmapRow
-            milestone="M3"
-            done
-            title="Terminal, Logs & Proxy"
-            description="Browser terminals, container logs, Traefik routes and certificates."
+          <FeatureRow
+            title="Backups"
+            description="Scheduled database dumps and volume archives, with downloads and restore."
           />
-          <RoadmapRow
-            milestone="M4"
-            done
-            title="Databases & Services"
-            description="One-click Postgres / MySQL / MariaDB / Redis / Mongo and compose services."
+          <FeatureRow
+            title="Notifications"
+            description="Deploy, backup, certificate and disk events to email, chat or a webhook."
           />
-          <RoadmapRow
-            milestone="M5"
-            done
-            title="Ops polish"
-            description="Notifications, scheduled backups, installer and self-update."
+          <FeatureRow
+            title="Access"
+            description="One admin account, sessions with CSRF protection, and API tokens."
           />
         </ul>
       </Card>
@@ -260,26 +248,11 @@ function SystemRow({ label, value }: { label: string; value: string }) {
   )
 }
 
-function RoadmapRow({
-  milestone,
-  title,
-  description,
-  done = false,
-}: {
-  milestone: string
-  title: string
-  description: string
-  done?: boolean
-}) {
+function FeatureRow({ title, description }: { title: string; description: string }) {
   return (
-    <li className="flex items-start gap-3 py-2.5 first:pt-0 last:pb-0">
-      <Badge variant={done ? 'success' : 'outline'} className="mt-0.5 w-9 justify-center">
-        {milestone}
-      </Badge>
-      <div className="flex min-w-0 flex-col gap-0.5">
-        <span className="text-ui font-medium text-foreground">{title}</span>
-        <span className="text-xs text-muted">{description}</span>
-      </div>
+    <li className="flex flex-col gap-0.5 py-2.5 first:pt-0 last:pb-0">
+      <span className="text-ui font-medium text-foreground">{title}</span>
+      <span className="text-xs text-muted">{description}</span>
     </li>
   )
 }

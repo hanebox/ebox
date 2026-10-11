@@ -392,11 +392,11 @@ export function ProxyPage() {
               <div className="grid gap-2 text-xs sm:grid-cols-2">
                 <div className="flex flex-col gap-0.5">
                   <span className="text-2xs font-medium text-subtle">Container</span>
-                  <span className="font-mono text-foreground">{status.container ?? '—'}</span>
+                  <span className="font-mono text-foreground">{status.container ?? '–'}</span>
                 </div>
                 <div className="flex flex-col gap-0.5">
                   <span className="text-2xs font-medium text-subtle">Image</span>
-                  <span className="font-mono text-foreground">{status.image ?? '—'}</span>
+                  <span className="font-mono text-foreground">{status.image ?? '–'}</span>
                 </div>
                 <div className="flex flex-col gap-0.5">
                   <span className="text-2xs font-medium text-subtle">Entrypoints</span>
@@ -416,7 +416,7 @@ export function ProxyPage() {
                       127.0.0.1:8080 <IconExternalLink aria-hidden className="size-3" />
                     </a>
                   ) : (
-                    <span className="text-subtle">—</span>
+                    <span className="text-subtle">–</span>
                   )}
                 </div>
               </div>

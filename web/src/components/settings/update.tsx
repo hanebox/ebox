@@ -95,12 +95,12 @@ export function UpdateSection() {
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2">
                 <dt className="text-subtle">Newest release</dt>
                 <dd className="font-mono text-foreground">
-                  {data.latest ? data.latest.version : data.check_error ? 'check failed' : '—'}
+                  {data.latest ? data.latest.version : data.check_error ? 'check failed' : '–'}
                 </dd>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2">
                 <dt className="text-subtle">Built</dt>
-                <dd className="text-foreground">{data.build_date === 'unknown' ? '—' : data.build_date}</dd>
+                <dd className="text-foreground">{data.build_date === 'unknown' ? '–' : data.build_date}</dd>
               </div>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-border px-3 py-2">
                 <dt className="text-subtle">Asset</dt>

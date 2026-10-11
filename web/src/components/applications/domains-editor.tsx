@@ -96,7 +96,7 @@ export function DomainsEditor({
           <CardTitle>Domains</CardTitle>
           <CardDescription>
             Traffic is routed by Traefik through the <span className="font-mono">ebox</span> network
-            once the proxy milestone lands.
+            once the proxy is running.
           </CardDescription>
         </div>
         <Button variant="secondary" size="sm" onClick={() => setAddOpen(true)}>
@@ -151,8 +151,8 @@ export function DomainsEditor({
 
         <p className="mt-3 flex items-start gap-2 text-2xs text-subtle">
           <IconInfoCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
-          Point an A record at this server. Certificates are issued automatically once Traefik is
-          connected (proxy milestone).
+          Point an A record at this server. Certificates are issued automatically once the proxy is
+          running.
         </p>
       </div>
 

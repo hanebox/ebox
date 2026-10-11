@@ -157,7 +157,7 @@ export function LogViewer({ resource, uuid, sources, className, height = 'h-[30r
         <a href={resourceLogDownloadURL(resource, uuid, 5000, container || undefined)} download>
           <Button variant="ghost" size="sm">
             <IconDownload aria-hidden className="size-3.5" />
-            IconDownload
+            Download
           </Button>
         </a>
         <span className="text-2xs text-subtle">

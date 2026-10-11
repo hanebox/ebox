@@ -277,7 +277,7 @@ function SessionsSection() {
                   </div>
                 </TableCell>
                 <TableCell className="font-mono text-xs whitespace-nowrap">
-                  {session.ip || '—'}
+                  {session.ip || '–'}
                 </TableCell>
                 <TableCell className="text-xs whitespace-nowrap text-muted">
                   {formatRelative(session.last_seen_at)}
@@ -352,7 +352,7 @@ function PanelSection() {
   return (
     <SectionCard
       title="Panel"
-      description="Domain and TLS details used when the reverse proxy layer arrives in M3."
+      description="Domain and TLS details for the panel route and its certificate."
     >
       <form
         className="flex flex-col gap-4"
