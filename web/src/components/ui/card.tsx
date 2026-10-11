@@ -5,7 +5,10 @@ import { cn } from '@/lib/cn'
 export function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('rounded-panel border border-border bg-surface shadow-sm', className)}
+      className={cn(
+        'rounded-panel bg-surface shadow-border transition-[box-shadow] duration-150 ease-out-quint',
+        className,
+      )}
       {...props}
     />
   )
@@ -16,7 +19,12 @@ export function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElemen
 }
 
 export function CardTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
-  return <h2 className={cn('text-sm font-semibold text-foreground', className)} {...props} />
+  return (
+    <h2
+      className={cn('text-sm font-medium tracking-[-0.01em] text-foreground', className)}
+      {...props}
+    />
+  )
 }
 
 export function CardDescription({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) {
@@ -47,7 +55,7 @@ export interface SectionProps {
 export function Section({ title, description, actions, children, className }: SectionProps) {
   return (
     <Card className={className}>
-      <div className="flex items-start justify-between gap-4 p-4">
+      <div className="flex flex-wrap items-start justify-between gap-4 p-4">
         <div className="flex flex-col gap-1">
           <CardTitle>{title}</CardTitle>
           {description ? <CardDescription>{description}</CardDescription> : null}

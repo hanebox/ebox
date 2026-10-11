@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useParams } from '@tanstack/react-router'
-import { ArrowLeft, Layers, Play, RotateCw, Rocket, Square, Trash2 } from 'lucide-react'
+import { IconArrowLeft, IconPlayerPlay, IconRocket, IconRotateClockwise2, IconSquare, IconStack2, IconTrash } from '@tabler/icons-react'
 import { Suspense, lazy, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -94,7 +94,7 @@ export function ServiceDetailPage() {
           to="/services"
           className="inline-flex items-center gap-1 text-xs text-subtle transition-colors hover:text-foreground"
         >
-          <ArrowLeft aria-hidden className="size-3.5" />
+          <IconArrowLeft aria-hidden className="size-3.5" />
           {record.project?.name ?? 'Services'}
         </Link>
         <PageHeader
@@ -107,7 +107,7 @@ export function ServiceDetailPage() {
           actions={
             <>
               <Button variant="primary" size="sm" loading={lifecycle.isPending} onClick={() => lifecycle.mutate('deploy')}>
-                <Rocket aria-hidden className="size-3.5" />
+                <IconRocket aria-hidden className="size-3.5" />
                 Deploy
               </Button>
               <Button
@@ -118,18 +118,18 @@ export function ServiceDetailPage() {
               >
                 {running ? (
                   <>
-                    <Square aria-hidden className="size-3.5" />
+                    <IconSquare aria-hidden className="size-3.5" />
                     Stop
                   </>
                 ) : (
                   <>
-                    <Play aria-hidden className="size-3.5" />
+                    <IconPlayerPlay aria-hidden className="size-3.5" />
                     Start
                   </>
                 )}
               </Button>
               <Button variant="secondary" size="sm" loading={lifecycle.isPending} onClick={() => lifecycle.mutate('restart')}>
-                <RotateCw aria-hidden className="size-3.5" />
+                <IconRotateClockwise2 aria-hidden className="size-3.5" />
                 Restart
               </Button>
             </>
@@ -154,7 +154,7 @@ export function ServiceDetailPage() {
           {runtimeState}
         </Badge>
         <Badge variant="outline">
-          <Layers aria-hidden className="mr-1 size-3" />
+          <IconStack2 aria-hidden className="me-1 size-3" />
           {record.definitions?.length ?? 0} compose service(s)
         </Badge>
         {record.entry_service ? (
@@ -162,13 +162,13 @@ export function ServiceDetailPage() {
             ingress {record.entry_service}:{record.entry_port}
           </Badge>
         ) : null}
-        <span className="text-[11px] text-subtle">
+        <span className="text-2xs text-subtle">
           {record.last_deployed_at ? `deployed ${formatRelative(record.last_deployed_at)}` : 'never deployed'}
         </span>
       </div>
 
       {record.last_error ? (
-        <p className="rounded-lg border border-danger/40 bg-danger-soft p-3 font-mono text-[11px] whitespace-pre-wrap text-danger">
+        <p className="rounded-lg border border-danger/40 bg-danger-soft p-3 font-mono text-2xs whitespace-pre-wrap text-danger">
           {record.last_error}
         </p>
       ) : null}
@@ -189,7 +189,7 @@ export function ServiceDetailPage() {
             description="Every compose service in this stack, as docker reports it."
           >
             {runningContainers.length === 0 && (containers.data?.length ?? 0) === 0 ? (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 The stack is not running. Deploy or start it to see containers.
               </p>
             ) : (
@@ -207,15 +207,15 @@ export function ServiceDetailPage() {
                   {(containers.data ?? []).map((container) => (
                     <TableRow key={container.id}>
                       <TableCell className="font-mono text-xs text-foreground">{container.service}</TableCell>
-                      <TableCell className="font-mono text-[11px] text-muted">{container.name}</TableCell>
+                      <TableCell className="font-mono text-2xs text-muted">{container.name}</TableCell>
                       <TableCell>
                         <Badge variant={container.state === 'running' ? 'success' : 'outline'}>
                           {container.state}
                           {container.health && container.health !== 'none' ? ` · ${container.health}` : ''}
                         </Badge>
                       </TableCell>
-                      <TableCell className="font-mono text-[11px] text-muted">{container.image}</TableCell>
-                      <TableCell className="font-mono text-[11px] text-muted">
+                      <TableCell className="font-mono text-2xs text-muted">{container.image}</TableCell>
+                      <TableCell className="font-mono text-2xs text-muted">
                         {(container.ports ?? []).join(', ') || '—'}
                       </TableCell>
                     </TableRow>
@@ -238,7 +238,7 @@ export function ServiceDetailPage() {
                       {item.name === record.entry_service ? <Badge variant="info">ingress</Badge> : null}
                       {item.build ? <Badge variant="outline">build</Badge> : null}
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 text-[11px] text-subtle">
+                    <div className="flex flex-wrap items-center gap-3 text-2xs text-subtle">
                       <span className="font-mono">{item.image || 'built from context'}</span>
                       {item.ports.length > 0 ? <span className="font-mono">ports {item.ports.join(', ')}</span> : null}
                       {item.depends_on.length > 0 ? (
@@ -264,7 +264,7 @@ export function ServiceDetailPage() {
                 }))}
               />
             ) : (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 The stack is not running.
               </p>
             )}
@@ -274,7 +274,7 @@ export function ServiceDetailPage() {
         <TabsPanel value="terminal">
           <Section title="Terminal" description="A shell inside one of the stack containers.">
             {runningContainers.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 The stack is not running.
               </p>
             ) : (
@@ -348,7 +348,7 @@ export function ServiceDetailPage() {
 
             {record.source === 'inline' ? (
               <Section title="Compose file" description="Edit the stored stack definition.">
-                <pre className="max-h-80 overflow-auto rounded-lg border border-border bg-[#0b0b12] p-3 font-mono text-[11px] text-[#c8c8d8]">
+                <pre className="max-h-80 overflow-auto rounded-control border border-border bg-[#0a0a0d] p-3 font-mono text-2xs text-[#c9c9cd]">
                   {record.compose}
                 </pre>
               </Section>
@@ -363,7 +363,7 @@ export function ServiceDetailPage() {
               </div>
               <CardContent className="flex justify-end pt-0">
                 <Button variant="danger" size="sm" onClick={() => setDeleteOpen(true)}>
-                  <Trash2 aria-hidden className="size-3.5" />
+                  <IconTrash aria-hidden className="size-3.5" />
                   Delete service
                 </Button>
               </CardContent>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Eye, EyeOff, FileUp, Plus, Trash2 } from 'lucide-react'
+import { IconEye, IconEyeOff, IconFileUpload, IconPlus, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -101,7 +101,7 @@ export function EnvVarsEditor({
         </div>
         <div className="flex items-center gap-2">
           <Button variant="secondary" size="sm" onClick={() => setImportOpen(true)}>
-            <FileUp aria-hidden className="size-3.5" />
+            <IconFileUpload aria-hidden className="size-3.5" />
             Import .env
           </Button>
           <Button variant="ghost" size="sm" onClick={() => void openExport()}>
@@ -119,7 +119,7 @@ export function EnvVarsEditor({
         ) : null}
 
         {env.data && env.data.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+          <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
             No variables yet.
           </p>
         ) : null}
@@ -131,7 +131,7 @@ export function EnvVarsEditor({
                 <TableHead>Key</TableHead>
                 <TableHead>Value</TableHead>
                 <TableHead>Scope</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -154,9 +154,9 @@ export function EnvVarsEditor({
                         }
                       >
                         {revealed[item.id] ? (
-                          <EyeOff aria-hidden className="size-3.5" />
+                          <IconEyeOff aria-hidden className="size-3.5" />
                         ) : (
-                          <Eye aria-hidden className="size-3.5" />
+                          <IconEye aria-hidden className="size-3.5" />
                         )}
                       </button>
                     </div>
@@ -164,14 +164,14 @@ export function EnvVarsEditor({
                   <TableCell className="text-xs whitespace-nowrap text-muted">
                     {item.is_build_time ? 'build + runtime' : 'runtime'}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-end">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => setDeleteTarget(item)}
                       aria-label={`Delete ${item.key}`}
                     >
-                      <Trash2 aria-hidden className="size-3.5 text-danger" />
+                      <IconTrash aria-hidden className="size-3.5 text-danger" />
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -226,7 +226,7 @@ export function EnvVarsEditor({
             </label>
           </div>
           <Button type="submit" variant="secondary" loading={add.isPending} className="mb-0.5">
-            <Plus aria-hidden className="size-3.5" />
+            <IconPlus aria-hidden className="size-3.5" />
             Add
           </Button>
         </form>

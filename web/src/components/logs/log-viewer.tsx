@@ -1,6 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { AnsiUp } from 'ansi_up'
-import { ArrowDownToLine, Download, RotateCw, Search, WrapText } from 'lucide-react'
+import { IconArrowDown, IconDownload, IconRotateClockwise2, IconSearch, IconTextWrap } from '@tabler/icons-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { resourceLogDownloadURL, resourceLogStreamURL } from '@/api/endpoints'
@@ -103,18 +103,18 @@ export function LogViewer({ resource, uuid, sources, className, height = 'h-[30r
   }, [filtered.length, follow, virtualizer])
 
   return (
-    <div className={cn('flex flex-col overflow-hidden rounded-lg border border-border bg-[#0b0b12]', className)}>
+    <div className={cn('flex flex-col overflow-hidden rounded-control border border-border bg-[#0a0a0d]', className)}>
       <div className="flex flex-wrap items-center gap-2 border-b border-border bg-surface-raised px-3 py-1.5">
         <div className="relative min-w-40 flex-1">
-          <Search
+          <IconSearch
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-subtle"
+            className="pointer-events-none absolute top-1/2 start-2.5 size-3.5 -translate-y-1/2 text-subtle"
           />
           <Input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Search lines…"
-            className="h-7 pl-8 text-xs"
+            className="h-7 ps-8 text-xs"
           />
         </div>
         {sources && sources.length > 1 ? (
@@ -144,23 +144,23 @@ export function LogViewer({ resource, uuid, sources, className, height = 'h-[30r
           ))}
         </Select>
         <Button variant="ghost" size="sm" onClick={() => setFollow((value) => !value)}>
-          <ArrowDownToLine aria-hidden className="size-3.5" />
+          <IconArrowDown aria-hidden className="size-3.5" />
           {follow ? 'Following' : 'Follow'}
         </Button>
         <Button variant="ghost" size="sm" onClick={() => setWrap((value) => !value)}>
-          <WrapText aria-hidden className="size-3.5" />
+          <IconTextWrap aria-hidden className="size-3.5" />
           {wrap ? 'Wrapped' : 'Wrap'}
         </Button>
         <Button variant="ghost" size="sm" onClick={() => setAttempt((value) => value + 1)}>
-          <RotateCw aria-hidden className="size-3.5" />
+          <IconRotateClockwise2 aria-hidden className="size-3.5" />
         </Button>
         <a href={resourceLogDownloadURL(resource, uuid, 5000, container || undefined)} download>
           <Button variant="ghost" size="sm">
-            <Download aria-hidden className="size-3.5" />
-            Download
+            <IconDownload aria-hidden className="size-3.5" />
+            IconDownload
           </Button>
         </a>
-        <span className="text-[11px] text-subtle">
+        <span className="text-2xs text-subtle">
           {filtered.length}/{lines.length}
         </span>
         <span
@@ -195,7 +195,7 @@ export function LogViewer({ resource, uuid, sources, className, height = 'h-[30r
               return (
                 <div
                   key={item.key}
-                  className="flex gap-3 font-mono text-[11px] leading-5"
+                  className="flex gap-3 font-mono text-2xs leading-5"
                   style={{
                     position: 'absolute',
                     top: 0,
@@ -204,11 +204,11 @@ export function LogViewer({ resource, uuid, sources, className, height = 'h-[30r
                     transform: `translateY(${item.start}px)`,
                   }}
                 >
-                  <span className="w-10 shrink-0 text-right text-[10px] text-subtle/60 select-none">
+                  <span className="tabular w-10 shrink-0 text-end text-2xs text-subtle/60">
                     {entry.index + 1}
                   </span>
                   <span
-                    className={cn('min-w-0 flex-1 text-[#c8c8d8]', wrap ? 'whitespace-pre-wrap break-all' : 'whitespace-pre')}
+                    className={cn('min-w-0 flex-1 text-[#c9c9cd]', wrap ? 'whitespace-pre-wrap break-all' : 'whitespace-pre')}
                     dangerouslySetInnerHTML={{ __html: ansi.ansi_to_html(entry.line) }}
                   />
                 </div>

@@ -1,5 +1,11 @@
 import { Toast } from '@base-ui/react/toast'
-import { AlertTriangle, CheckCircle2, Info, X, XCircle } from 'lucide-react'
+import {
+  IconAlertTriangle,
+  IconCircleCheck,
+  IconCircleX,
+  IconInfoCircle,
+  IconX,
+} from '@tabler/icons-react'
 
 import { cn } from '@/lib/cn'
 
@@ -18,11 +24,11 @@ export const toast = {
   info: (title: string, description?: string) => add('info', title, description),
 }
 
-const typeStyles: Record<ToastType, { icon: typeof Info; className: string }> = {
-  success: { icon: CheckCircle2, className: 'text-success' },
-  error: { icon: XCircle, className: 'text-danger' },
-  warning: { icon: AlertTriangle, className: 'text-warning' },
-  info: { icon: Info, className: 'text-info' },
+const typeStyles: Record<ToastType, { icon: typeof IconInfoCircle; className: string }> = {
+  success: { icon: IconCircleCheck, className: 'text-success' },
+  error: { icon: IconCircleX, className: 'text-danger' },
+  warning: { icon: IconAlertTriangle, className: 'text-warning' },
+  info: { icon: IconInfoCircle, className: 'text-info' },
 }
 
 export function Toaster() {
@@ -30,7 +36,7 @@ export function Toaster() {
 
   return (
     <Toast.Portal>
-      <Toast.Viewport className="fixed right-4 bottom-4 z-50 flex w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 outline-none">
+      <Toast.Viewport className="fixed end-4 bottom-4 z-50 flex w-[min(24rem,calc(100vw-2rem))] flex-col gap-2 outline-none">
         {toasts.map((item) => {
           const type = (item.type ?? 'info') as ToastType
           const style = typeStyles[type] ?? typeStyles.info
@@ -42,21 +48,22 @@ export function Toaster() {
               toast={item}
               className={cn(
                 'rounded-panel border border-border bg-surface-overlay p-3 shadow-popover',
-                'transition-all duration-200 data-ending-style:translate-x-2 data-ending-style:opacity-0',
+                'transition-[opacity,transform] duration-200 ease-out-quint',
+                'data-ending-style:translate-x-2 data-ending-style:opacity-0 data-ending-style:duration-100',
                 'data-starting-style:translate-x-2 data-starting-style:opacity-0',
               )}
             >
               <Toast.Content className="flex items-start gap-3">
                 <Icon aria-hidden className={cn('mt-0.5 size-4 shrink-0', style.className)} />
                 <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <Toast.Title className="text-sm font-medium text-foreground" />
+                  <Toast.Title className="text-ui font-medium text-foreground" />
                   <Toast.Description className="text-xs text-muted" />
                 </div>
                 <Toast.Close
-                  className="rounded-md p-0.5 text-subtle transition-colors hover:text-foreground"
+                  className="rounded-tile p-0.5 text-subtle transition-colors duration-150 hover:text-foreground"
                   aria-label="Dismiss notification"
                 >
-                  <X aria-hidden className="size-3.5" />
+                  <IconX aria-hidden className="size-3.5" />
                 </Toast.Close>
               </Toast.Content>
             </Toast.Root>

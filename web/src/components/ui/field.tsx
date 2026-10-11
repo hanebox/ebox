@@ -27,7 +27,7 @@ export function Field({ label, description, error, children, className, htmlFor 
 
   return (
     <div className={cn('flex flex-col gap-1.5', className)}>
-      <label htmlFor={id} className="text-sm font-medium text-foreground">
+      <label htmlFor={id} className="text-ui font-medium text-foreground">
         {label}
       </label>
       {typeof children === 'function'

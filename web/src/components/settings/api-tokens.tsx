@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { KeyRound, Plus, ShieldAlert } from 'lucide-react'
+import { IconKey, IconPlus, IconShieldExclamation } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -78,7 +78,7 @@ export function ApiTokensSection() {
           </CardDescription>
         </div>
         <Button variant="secondary" size="sm" onClick={() => setCreateOpen(true)}>
-          <Plus aria-hidden className="size-3.5" />
+          <IconPlus aria-hidden className="size-3.5" />
           New token
         </Button>
       </div>
@@ -92,8 +92,8 @@ export function ApiTokensSection() {
         ) : null}
 
         {tokens.data && tokens.data.length === 0 ? (
-          <div className="flex items-center gap-3 rounded-lg border border-dashed border-border px-4 py-6 text-xs text-muted">
-            <KeyRound aria-hidden className="size-4 text-subtle" />
+          <div className="flex items-center gap-3 hatch rounded-control border border-border px-4 py-6 text-xs text-muted">
+            <IconKey aria-hidden className="size-4 text-subtle" />
             No tokens yet. Create one for scripts, backups or CI.
           </div>
         ) : null}
@@ -106,7 +106,7 @@ export function ApiTokensSection() {
                 <TableHead>Created</TableHead>
                 <TableHead>Last used</TableHead>
                 <TableHead>Expires</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -124,7 +124,7 @@ export function ApiTokensSection() {
                   <TableCell className="text-xs whitespace-nowrap text-muted">
                     {token.expires_at ? formatDateTime(token.expires_at) : 'never'}
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-end">
                     <Button
                       variant="ghost"
                       size="sm"
@@ -212,7 +212,7 @@ export function ApiTokensSection() {
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-start gap-3 rounded-lg border border-warning/40 bg-warning-soft p-3">
-            <ShieldAlert aria-hidden className="mt-0.5 size-4 shrink-0 text-warning" />
+            <IconShieldExclamation aria-hidden className="mt-0.5 size-4 shrink-0 text-warning" />
             <p className="text-xs text-foreground">
               Store this token in your CI secrets or password manager. Anyone with it can control the
               panel.

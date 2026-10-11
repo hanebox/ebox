@@ -1,7 +1,7 @@
 import { FitAddon } from '@xterm/addon-fit'
 import { WebLinksAddon } from '@xterm/addon-web-links'
 import { Terminal } from '@xterm/xterm'
-import { RotateCw, Wifi, WifiOff } from 'lucide-react'
+import { IconRotateClockwise2, IconWifi, IconWifiOff } from '@tabler/icons-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { terminalWebSocketURL } from '@/api/endpoints'
@@ -12,25 +12,25 @@ import { cn } from '@/lib/cn'
 import '@xterm/xterm/css/xterm.css'
 
 const terminalTheme = {
-  background: '#0b0b12',
-  foreground: '#d6d6e4',
-  cursor: '#8b8bf5',
-  selectionBackground: '#2a2a44',
-  black: '#1b1b28',
-  red: '#ff6b81',
-  green: '#5ddb9a',
+  background: '#0a0a0d',
+  foreground: '#d4d4d8',
+  cursor: '#9d8cff',
+  selectionBackground: '#2e2a4a',
+  black: '#1b1b1f',
+  red: '#ff7a85',
+  green: '#6ee7b7',
   yellow: '#f5c76a',
-  blue: '#7aa2f7',
-  magenta: '#bb9af7',
-  cyan: '#7dcfff',
-  white: '#d6d6e4',
-  brightBlack: '#414155',
-  brightRed: '#ff8fa3',
-  brightGreen: '#7ee2b8',
+  blue: '#8ab4ff',
+  magenta: '#c4a9ff',
+  cyan: '#7dd3fc',
+  white: '#d4d4d8',
+  brightBlack: '#45454d',
+  brightRed: '#ff9aa3',
+  brightGreen: '#8ef0c9',
   brightYellow: '#ffd98a',
-  brightBlue: '#9ab8ff',
-  brightMagenta: '#d0b8ff',
-  brightCyan: '#a4e0ff',
+  brightBlue: '#a8c8ff',
+  brightMagenta: '#d8c4ff',
+  brightCyan: '#a5e3ff',
   brightWhite: '#ffffff',
 }
 
@@ -142,19 +142,19 @@ export function TerminalView({ target, className }: { target: string; className?
   }, [target, attempt])
 
   return (
-    <div className={cn('flex flex-col overflow-hidden rounded-lg border border-border bg-[#0b0b12]', className)}>
+    <div className={cn('flex flex-col overflow-hidden rounded-control border border-border bg-[#0a0a0d]', className)}>
       <div className="flex items-center justify-between gap-2 border-b border-border bg-surface-raised px-3 py-1.5">
-        <div className="flex items-center gap-2 text-[11px]">
+        <div className="flex items-center gap-2 text-2xs">
           <Badge variant={status === 'open' ? 'success' : status === 'connecting' ? 'info' : 'danger'}>
             {status === 'open' ? (
               <>
-                <Wifi aria-hidden className="size-3" /> connected
+                <IconWifi aria-hidden className="size-3" /> connected
               </>
             ) : status === 'connecting' ? (
               'connecting'
             ) : (
               <>
-                <WifiOff aria-hidden className="size-3" /> disconnected
+                <IconWifiOff aria-hidden className="size-3" /> disconnected
               </>
             )}
           </Badge>
@@ -165,7 +165,7 @@ export function TerminalView({ target, className }: { target: string; className?
             Clear
           </Button>
           <Button variant="ghost" size="sm" onClick={reconnect}>
-            <RotateCw aria-hidden className="size-3.5" />
+            <IconRotateClockwise2 aria-hidden className="size-3.5" />
             Reconnect
           </Button>
         </div>

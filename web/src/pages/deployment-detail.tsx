@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useParams } from '@tanstack/react-router'
-import { ArrowLeft, CircleStop } from 'lucide-react'
+import { IconArrowLeft, IconCircleStop } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -52,7 +52,7 @@ export function DeploymentDetailPage() {
           to="/deployments"
           className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-foreground"
         >
-          <ArrowLeft aria-hidden className="size-3.5" />
+          <IconArrowLeft aria-hidden className="size-3.5" />
           All deployments
         </Link>
       </div>
@@ -83,7 +83,7 @@ export function DeploymentDetailPage() {
                     loading={cancel.isPending}
                     onClick={() => cancel.mutate()}
                   >
-                    <CircleStop aria-hidden className="size-3.5 text-danger" />
+                    <IconCircleStop aria-hidden className="size-3.5 text-danger" />
                     <span className="text-danger">Cancel</span>
                   </Button>
                 ) : null}
@@ -95,29 +95,29 @@ export function DeploymentDetailPage() {
             <CardContent className="flex flex-wrap items-center gap-x-6 gap-y-3">
               <DeploymentStatusBadge status={status} />
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Commit</span>
+                <span className="text-2xs font-medium text-subtle">Commit</span>
                 <span className="font-mono text-xs text-foreground">
                   {data.commit ? data.commit.slice(0, 7) : '—'}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Message</span>
+                <span className="text-2xs font-medium text-subtle">Message</span>
                 <span className="max-w-md truncate text-xs text-foreground">
                   {data.commit_message || '—'}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Image</span>
+                <span className="text-2xs font-medium text-subtle">Image</span>
                 <span className="font-mono text-xs text-foreground">{data.image_tag || '—'}</span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Started</span>
+                <span className="text-2xs font-medium text-subtle">Started</span>
                 <span className="text-xs text-foreground">
                   {data.started_at ? formatRelative(data.started_at) : formatDateTime(data.created_at)}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Duration</span>
+                <span className="text-2xs font-medium text-subtle">Duration</span>
                 <span className="text-xs text-foreground">
                   {data.duration_ms ? `${Math.round(data.duration_ms / 1000)}s` : '—'}
                 </span>

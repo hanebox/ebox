@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from '@tanstack/react-router'
-import { ArrowLeft, Database, FolderKanban, Layers, Pencil, Plus, Trash2 } from 'lucide-react'
+import { IconArrowLeft, IconDatabase, IconFolders, IconPencil, IconPlus, IconStack2, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -68,7 +68,7 @@ export function ProjectDetailPage() {
           to="/projects"
           className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-foreground"
         >
-          <ArrowLeft aria-hidden className="size-3.5" />
+          <IconArrowLeft aria-hidden className="size-3.5" />
           All projects
         </Link>
       </div>
@@ -77,7 +77,7 @@ export function ProjectDetailPage() {
 
       {project.isError ? (
         <EmptyState
-          icon={<FolderKanban aria-hidden />}
+          icon={<IconFolders aria-hidden />}
           title="Project not found"
           description="It may have been deleted. Head back to the projects list."
           action={
@@ -96,11 +96,11 @@ export function ProjectDetailPage() {
             actions={
               <>
                 <Button variant="secondary" size="sm" onClick={() => setEditOpen(true)}>
-                  <Pencil aria-hidden className="size-3.5" />
+                  <IconPencil aria-hidden className="size-3.5" />
                   Edit
                 </Button>
                 <Button variant="ghost" size="sm" onClick={() => setDeleteOpen(true)}>
-                  <Trash2 aria-hidden className="size-3.5 text-danger" />
+                  <IconTrash aria-hidden className="size-3.5 text-danger" />
                   <span className="text-danger">Delete</span>
                 </Button>
               </>
@@ -110,17 +110,17 @@ export function ProjectDetailPage() {
           <Card>
             <CardContent className="grid gap-4 sm:grid-cols-3">
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Identifier</span>
+                <span className="text-2xs font-medium text-subtle">Identifier</span>
                 <span className="font-mono text-xs text-foreground">{project.data.uuid}</span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Created</span>
+                <span className="text-2xs font-medium text-subtle">Created</span>
                 <span className="text-xs text-foreground">
                   {formatDateTime(project.data.created_at)}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-[11px] tracking-wide text-subtle uppercase">Updated</span>
+                <span className="text-2xs font-medium text-subtle">Updated</span>
                 <span className="text-xs text-foreground">
                   {formatDateTime(project.data.updated_at)}
                 </span>
@@ -134,7 +134,7 @@ export function ProjectDetailPage() {
             actions={
               <Link to="/projects/$projectId/new/application" params={{ projectId }}>
                 <Button variant="primary" size="sm">
-                  <Plus aria-hidden className="size-3.5" />
+                  <IconPlus aria-hidden className="size-3.5" />
                   New application
                 </Button>
               </Link>
@@ -149,13 +149,13 @@ export function ProjectDetailPage() {
 
             {applications.data && applications.data.length === 0 ? (
               <EmptyState
-                icon={<FolderKanban aria-hidden />}
+                icon={<IconFolders aria-hidden />}
                 title="No applications yet"
                 description="Create an application to deploy code from one of your sources."
                 action={
                   <Link to="/projects/$projectId/new/application" params={{ projectId }}>
                     <Button variant="primary">
-                      <Plus aria-hidden className="size-3.5" />
+                      <IconPlus aria-hidden className="size-3.5" />
                       New application
                     </Button>
                   </Link>
@@ -178,14 +178,14 @@ export function ProjectDetailPage() {
             actions={
               <Link to="/databases">
                 <Button variant="ghost" size="sm">
-                  <Plus aria-hidden className="size-3.5" />
+                  <IconPlus aria-hidden className="size-3.5" />
                   New database
                 </Button>
               </Link>
             }
           >
             {(databases.data?.length ?? 0) === 0 ? (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 No databases in this project yet.
               </p>
             ) : (
@@ -195,13 +195,13 @@ export function ProjectDetailPage() {
                     key={database.uuid}
                     to="/databases/$databaseId"
                     params={{ databaseId: database.uuid }}
-                    className="flex items-center justify-between gap-3 rounded-lg border border-border px-4 py-3 transition-colors hover:border-accent/60"
+                    className="flex items-center justify-between gap-3 rounded-lg border border-border px-4 py-3 transition-colors hover:border-border-strong"
                   >
                     <div className="flex min-w-0 items-center gap-2">
-                      <Database aria-hidden className="size-4 text-subtle" />
+                      <IconDatabase aria-hidden className="size-4 text-subtle" />
                       <div className="flex min-w-0 flex-col">
                         <span className="truncate text-sm text-foreground">{database.name}</span>
-                        <span className="text-[11px] text-subtle">
+                        <span className="text-2xs text-subtle">
                           {database.type} {database.version}
                           {database.port > 0 ? ` · host port ${database.port}` : ' · internal only'}
                         </span>
@@ -222,14 +222,14 @@ export function ProjectDetailPage() {
             actions={
               <Link to="/services">
                 <Button variant="ghost" size="sm">
-                  <Plus aria-hidden className="size-3.5" />
+                  <IconPlus aria-hidden className="size-3.5" />
                   New service
                 </Button>
               </Link>
             }
           >
             {(services.data?.length ?? 0) === 0 ? (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 No compose services in this project yet.
               </p>
             ) : (
@@ -239,13 +239,13 @@ export function ProjectDetailPage() {
                     key={service.uuid}
                     to="/services/$serviceId"
                     params={{ serviceId: service.uuid }}
-                    className="flex items-center justify-between gap-3 rounded-lg border border-border px-4 py-3 transition-colors hover:border-accent/60"
+                    className="flex items-center justify-between gap-3 rounded-lg border border-border px-4 py-3 transition-colors hover:border-border-strong"
                   >
                     <div className="flex min-w-0 items-center gap-2">
-                      <Layers aria-hidden className="size-4 text-subtle" />
+                      <IconStack2 aria-hidden className="size-4 text-subtle" />
                       <div className="flex min-w-0 flex-col">
                         <span className="truncate text-sm text-foreground">{service.name}</span>
-                        <span className="text-[11px] text-subtle">
+                        <span className="text-2xs text-subtle">
                           {service.runtime?.services?.length ?? 0} compose service(s)
                           {(service.runtime?.services?.length ?? 0) > 0
                             ? ` · ${service.runtime.services.filter((item) => item.state === 'running').length} running`

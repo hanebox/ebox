@@ -1,13 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import {
-  ExternalLink,
-  GitBranch,
-  MoreVertical,
-  PlugZap,
-  RefreshCw,
-  Trash2,
-} from 'lucide-react'
+import { IconDotsVertical, IconExternalLink, IconGitBranch, IconPlugConnected, IconRefresh, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -26,7 +19,7 @@ export function SourceCard({ source }: { source: Source }) {
 
   const isGithub = source.type === 'github_app'
   const installed = isGithub && Boolean(source.installation_id)
-  const Icon = isGithub ? GitHubIcon : GitBranch
+  const Icon = isGithub ? GitHubIcon : IconGitBranch
 
   const testMutation = useMutation({
     mutationFn: () => api.testSource(source.uuid),
@@ -50,7 +43,7 @@ export function SourceCard({ source }: { source: Source }) {
   })
 
   return (
-    <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4 shadow-sm">
+    <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-raised text-muted">
@@ -68,13 +61,13 @@ export function SourceCard({ source }: { source: Source }) {
                 )
               ) : null}
             </div>
-            <p className="truncate font-mono text-[11px] text-muted">
+            <p className="truncate font-mono text-2xs text-muted">
               {isGithub
                 ? `${source.app_slug || 'unknown app'} · App ID ${source.app_id}`
                 : source.git_url}
             </p>
             {!isGithub && source.auth_type !== 'none' ? (
-              <p className="text-[11px] text-subtle">
+              <p className="text-2xs text-subtle">
                 Authenticated with {source.auth_type === 'token' ? 'an access token' : 'an SSH key'}
               </p>
             ) : null}
@@ -84,25 +77,25 @@ export function SourceCard({ source }: { source: Source }) {
         <DropdownMenu
           trigger={
             <Button variant="ghost" size="icon" aria-label={`Actions for ${source.name}`}>
-              <MoreVertical aria-hidden className="size-4" />
+              <IconDotsVertical aria-hidden className="size-4" />
             </Button>
           }
         >
           <DropdownItem onClick={() => testMutation.mutate()}>
-            <RefreshCw aria-hidden className="size-3.5" />
+            <IconRefresh aria-hidden className="size-3.5" />
             Test connection
           </DropdownItem>
           {isGithub && source.html_url ? (
             <DropdownItem
               onClick={() => window.open(source.html_url, '_blank', 'noopener,noreferrer')}
             >
-              <ExternalLink aria-hidden className="size-3.5" />
+              <IconExternalLink aria-hidden className="size-3.5" />
               Open on GitHub
             </DropdownItem>
           ) : null}
           <DropdownSeparator />
           <DropdownItem danger onClick={() => setDeleteOpen(true)}>
-            <Trash2 aria-hidden className="size-3.5" />
+            <IconTrash aria-hidden className="size-3.5" />
             Delete source
           </DropdownItem>
         </DropdownMenu>
@@ -127,7 +120,7 @@ export function SourceCard({ source }: { source: Source }) {
               )
             }
           >
-            <PlugZap aria-hidden className="size-3.5" />
+            <IconPlugConnected aria-hidden className="size-3.5" />
             Install app
           </Button>
         ) : null}

@@ -1,16 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import {
-  ExternalLink,
-  Lock,
-  Network,
-  Play,
-  Plus,
-  RefreshCw,
-  Shield,
-  Square,
-  Trash2,
-  Wrench,
-} from 'lucide-react'
+import { IconExternalLink, IconLock, IconNetwork, IconPlayerPlay, IconPlus, IconRefresh, IconShield, IconSquare, IconTool, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -354,12 +343,12 @@ export function ProxyPage() {
                 >
                   {status.running ? (
                     <>
-                      <Square aria-hidden className="size-3.5" />
+                      <IconSquare aria-hidden className="size-3.5" />
                       Stop
                     </>
                   ) : (
                     <>
-                      <Play aria-hidden className="size-3.5" />
+                      <IconPlayerPlay aria-hidden className="size-3.5" />
                       Start
                     </>
                   )}
@@ -370,7 +359,7 @@ export function ProxyPage() {
                   loading={lifecycle.isPending}
                   onClick={() => lifecycle.mutate('restart')}
                 >
-                  <RefreshCw aria-hidden className="size-3.5" />
+                  <IconRefresh aria-hidden className="size-3.5" />
                   Restart
                 </Button>
               </>
@@ -381,7 +370,7 @@ export function ProxyPage() {
                 loading={lifecycle.isPending}
                 onClick={() => lifecycle.mutate('ensure')}
               >
-                <Wrench aria-hidden className="size-3.5" />
+                <IconTool aria-hidden className="size-3.5" />
                 Set up proxy
               </Button>
             )}
@@ -402,21 +391,21 @@ export function ProxyPage() {
               </div>
               <div className="grid gap-2 text-xs sm:grid-cols-2">
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[11px] tracking-wide text-subtle uppercase">Container</span>
+                  <span className="text-2xs font-medium text-subtle">Container</span>
                   <span className="font-mono text-foreground">{status.container ?? '—'}</span>
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[11px] tracking-wide text-subtle uppercase">Image</span>
+                  <span className="text-2xs font-medium text-subtle">Image</span>
                   <span className="font-mono text-foreground">{status.image ?? '—'}</span>
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[11px] tracking-wide text-subtle uppercase">Entrypoints</span>
+                  <span className="text-2xs font-medium text-subtle">Entrypoints</span>
                   <span className="text-foreground">
                     {overview.data?.settings.http_port ?? 80} → 80, {overview.data?.settings.https_port ?? 443} → 443
                   </span>
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className="text-[11px] tracking-wide text-subtle uppercase">Dashboard</span>
+                  <span className="text-2xs font-medium text-subtle">Dashboard</span>
                   {status.running ? (
                     <a
                       href="http://127.0.0.1:8080/dashboard/"
@@ -424,7 +413,7 @@ export function ProxyPage() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-1 text-accent hover:underline"
                     >
-                      127.0.0.1:8080 <ExternalLink aria-hidden className="size-3" />
+                      127.0.0.1:8080 <IconExternalLink aria-hidden className="size-3" />
                     </a>
                   ) : (
                     <span className="text-subtle">—</span>
@@ -432,7 +421,7 @@ export function ProxyPage() {
                 </div>
               </div>
               {!status.installed ? (
-                <p className="rounded-lg border border-border bg-surface-raised p-2 text-[11px] text-muted">
+                <p className="rounded-lg border border-border bg-surface-raised p-2 text-2xs text-muted">
                   The proxy runs as a Traefik container on the ebox network. Set it up to publish
                   applications and the panel over HTTPS.
                 </p>
@@ -490,7 +479,7 @@ export function ProxyPage() {
       >
         {!status?.api_reachable ? (
           <EmptyState
-            icon={<Network aria-hidden />}
+            icon={<IconNetwork aria-hidden />}
             title="Proxy API not reachable"
             description="Start the proxy to inspect the live routing table."
           />
@@ -514,22 +503,22 @@ export function ProxyPage() {
                   <TableCell className="font-mono text-xs whitespace-nowrap text-foreground">
                     {route.name}
                   </TableCell>
-                  <TableCell className="max-w-80 truncate font-mono text-[11px] text-muted">
+                  <TableCell className="max-w-80 truncate font-mono text-2xs text-muted">
                     {route.rule}
                   </TableCell>
-                  <TableCell className="font-mono text-[11px] text-muted">{route.service}</TableCell>
-                  <TableCell className="text-[11px] text-muted">{route.entrypoints.join(', ')}</TableCell>
+                  <TableCell className="font-mono text-2xs text-muted">{route.service}</TableCell>
+                  <TableCell className="text-2xs text-muted">{route.entrypoints.join(', ')}</TableCell>
                   <TableCell>
                     <Badge variant={route.provider === 'docker' ? 'info' : 'outline'}>{route.provider}</Badge>
                   </TableCell>
                   <TableCell>
                     {route.tls ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-success">
-                        <Lock aria-hidden className="size-3" />
+                      <span className="inline-flex items-center gap-1 text-2xs text-success">
+                        <IconLock aria-hidden className="size-3" />
                         on
                       </span>
                     ) : (
-                      <span className="text-[11px] text-subtle">off</span>
+                      <span className="text-2xs text-subtle">off</span>
                     )}
                   </TableCell>
                 </TableRow>
@@ -541,7 +530,7 @@ export function ProxyPage() {
 
       <Section title="Certificates" description="Parsed from the ACME store.">
         {certificates.data && certificates.data.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+          <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
             No certificates yet. They are requested automatically for HTTPS domains once a domain
             points at this server.
           </p>
@@ -561,13 +550,13 @@ export function ProxyPage() {
               {certificates.data.map((certificate) => (
                 <TableRow key={certificate.domain}>
                   <TableCell className="font-mono text-xs text-foreground">{certificate.domain}</TableCell>
-                  <TableCell className="text-[11px] text-muted">{certificate.sans.join(', ')}</TableCell>
-                  <TableCell className="text-[11px] text-muted">{certificate.issuer}</TableCell>
-                  <TableCell className="text-[11px] whitespace-nowrap">
+                  <TableCell className="text-2xs text-muted">{certificate.sans.join(', ')}</TableCell>
+                  <TableCell className="text-2xs text-muted">{certificate.issuer}</TableCell>
+                  <TableCell className="text-2xs whitespace-nowrap">
                     <Badge variant={certificate.days_left > 21 ? 'success' : 'warning'}>
                       {certificate.days_left} days
                     </Badge>
-                    <span className="ml-2 text-subtle">{formatDateTime(certificate.not_after)}</span>
+                    <span className="ms-2 text-subtle">{formatDateTime(certificate.not_after)}</span>
                   </TableCell>
                 </TableRow>
               ))}
@@ -581,13 +570,13 @@ export function ProxyPage() {
         description="File-provider middlewares are editable here; Docker-provider ones come from container labels."
         actions={
           <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-            <Plus aria-hidden className="size-3.5" />
+            <IconPlus aria-hidden className="size-3.5" />
             New middleware
           </Button>
         }
       >
         {middlewares.data && middlewares.data.length === 0 ? (
-          <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+          <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
             No middlewares defined yet.
           </p>
         ) : null}
@@ -600,7 +589,7 @@ export function ProxyPage() {
                 className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border px-3 py-2.5"
               >
                 <div className="flex min-w-0 items-center gap-2">
-                  <Shield aria-hidden className="size-3.5 text-subtle" />
+                  <IconShield aria-hidden className="size-3.5 text-subtle" />
                   <span className="font-mono text-xs text-foreground">{middleware.name}</span>
                   <Badge variant="outline">{middleware.type}</Badge>
                   <Badge variant={middleware.provider === 'file' ? 'info' : 'outline'}>
@@ -608,7 +597,7 @@ export function ProxyPage() {
                   </Badge>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="max-w-72 truncate font-mono text-[11px] text-subtle">
+                  <span className="max-w-72 truncate font-mono text-2xs text-subtle">
                     {JSON.stringify(middleware.config)}
                   </span>
                   {middleware.editable ? (
@@ -618,7 +607,7 @@ export function ProxyPage() {
                       aria-label={`Delete ${middleware.name}`}
                       onClick={() => setDeleteTarget(middleware)}
                     >
-                      <Trash2 aria-hidden className="size-3.5 text-danger" />
+                      <IconTrash aria-hidden className="size-3.5 text-danger" />
                     </Button>
                   ) : null}
                 </div>
@@ -629,8 +618,8 @@ export function ProxyPage() {
       </Section>
 
       <Section title="Proxy logs" description="Last 200 lines from the Traefik container.">
-        <div className="h-64 overflow-auto rounded-lg border border-border bg-[#0b0b12] px-3 py-2">
-          <pre className="font-mono text-[11px] leading-5 whitespace-pre-wrap text-[#c8c8d8]">
+        <div className="h-64 overflow-auto rounded-control border border-border bg-[#0a0a0d] px-3 py-2">
+          <pre className="font-mono text-2xs leading-5 whitespace-pre-wrap text-[#c9c9cd]">
             {(logs.data?.lines ?? []).join('\n') || (status?.running ? 'Waiting for output…' : 'Proxy is not running.')}
           </pre>
         </div>

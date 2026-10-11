@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Database, Plus } from 'lucide-react'
+import { IconDatabase, IconPlus } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -49,16 +49,16 @@ function DatabaseCard({ database }: { database: DatabaseResponse }) {
     <Link
       to="/databases/$databaseId"
       params={{ databaseId: database.uuid }}
-      className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60"
+      className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-border-strong"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="flex size-8 items-center justify-center rounded-lg bg-accent-soft text-accent">
-            <Database aria-hidden className="size-4" />
+            <IconDatabase aria-hidden className="size-4" />
           </span>
           <div className="flex min-w-0 flex-col">
             <span className="truncate text-sm font-medium text-foreground">{database.name}</span>
-            <span className="truncate text-[11px] text-subtle">
+            <span className="truncate text-2xs text-subtle">
               {engineIcons[database.type] ?? database.type} {database.version}
             </span>
           </div>
@@ -69,7 +69,7 @@ function DatabaseCard({ database }: { database: DatabaseResponse }) {
         </Badge>
       </div>
 
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-subtle">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-2xs text-subtle">
         <span className="font-mono">{database.runtime?.container_name ?? '—'}</span>
         {database.port > 0 ? <span className="font-mono">host port {database.port}</span> : <span>internal only</span>}
         <span>{formatRelative(database.created_at)}</span>
@@ -192,7 +192,7 @@ function CreateDatabaseDialog({ open, onOpenChange }: { open: boolean; onOpenCha
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col">
               <span className="text-xs text-foreground">Expose on a host port</span>
-              <span className="text-[11px] text-subtle">
+              <span className="text-2xs text-subtle">
                 Apps reach the database on the ebox network without this.
               </span>
             </div>
@@ -265,7 +265,7 @@ export function DatabasesPage() {
         description="Postgres, MySQL, MariaDB, Redis and MongoDB with generated credentials."
         actions={
           <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-            <Plus aria-hidden className="size-3.5" />
+            <IconPlus aria-hidden className="size-3.5" />
             New database
           </Button>
         }
@@ -281,12 +281,12 @@ export function DatabasesPage() {
       {databases.isSuccess && (databases.data?.length ?? 0) === 0 ? (
         <Card className="p-6">
           <EmptyState
-            icon={<Database aria-hidden />}
+            icon={<IconDatabase aria-hidden />}
             title="No databases yet"
             description="Create one to get a connection string your applications can use."
             action={
               <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-                <Plus aria-hidden className="size-3.5" />
+                <IconPlus aria-hidden className="size-3.5" />
                 New database
               </Button>
             }

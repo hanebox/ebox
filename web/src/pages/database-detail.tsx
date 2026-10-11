@@ -1,17 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useParams } from '@tanstack/react-router'
-import {
-  ArrowLeft,
-  Check,
-  Copy,
-  Database,
-  Eye,
-  EyeOff,
-  Play,
-  RotateCw,
-  Square,
-  Trash2,
-} from 'lucide-react'
+import { IconArrowLeft, IconCheck, IconCopy, IconDatabase, IconEye, IconEyeOff, IconPlayerPlay, IconRotateClockwise2, IconSquare, IconTrash } from '@tabler/icons-react'
 import { Suspense, lazy, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -40,7 +29,7 @@ function CopyRow({ label, value, mono = true }: { label: string; value: string; 
   return (
     <div className="flex items-center justify-between gap-3 rounded-lg border border-border bg-surface-raised px-3 py-2">
       <div className="flex min-w-0 flex-col">
-        <span className="text-[11px] tracking-wide text-subtle uppercase">{label}</span>
+        <span className="text-2xs font-medium text-subtle">{label}</span>
         <span className={`truncate text-xs text-foreground ${mono ? 'font-mono' : ''}`}>{value || '—'}</span>
       </div>
       <Button
@@ -54,7 +43,7 @@ function CopyRow({ label, value, mono = true }: { label: string; value: string; 
           })
         }}
       >
-        {copied ? <Check aria-hidden className="size-3.5 text-success" /> : <Copy aria-hidden className="size-3.5" />}
+        {copied ? <IconCheck aria-hidden className="size-3.5 text-success" /> : <IconCopy aria-hidden className="size-3.5" />}
       </Button>
     </div>
   )
@@ -118,7 +107,7 @@ export function DatabaseDetailPage() {
   if (database.isError || !database.data) {
     return (
       <Card className="p-6">
-        <p className="text-sm text-danger">Database not found.</p>
+        <p className="text-sm text-danger">IconDatabase not found.</p>
       </Card>
     )
   }
@@ -132,7 +121,7 @@ export function DatabaseDetailPage() {
           to="/databases"
           className="inline-flex items-center gap-1 text-xs text-subtle transition-colors hover:text-foreground"
         >
-          <ArrowLeft aria-hidden className="size-3.5" />
+          <IconArrowLeft aria-hidden className="size-3.5" />
           {record.project?.name ?? 'Databases'}
         </Link>
         <PageHeader
@@ -148,18 +137,18 @@ export function DatabaseDetailPage() {
               >
                 {running ? (
                   <>
-                    <Square aria-hidden className="size-3.5" />
+                    <IconSquare aria-hidden className="size-3.5" />
                     Stop
                   </>
                 ) : (
                   <>
-                    <Play aria-hidden className="size-3.5" />
+                    <IconPlayerPlay aria-hidden className="size-3.5" />
                     Start
                   </>
                 )}
               </Button>
               <Button variant="secondary" size="sm" loading={lifecycle.isPending} onClick={() => lifecycle.mutate('restart')}>
-                <RotateCw aria-hidden className="size-3.5" />
+                <IconRotateClockwise2 aria-hidden className="size-3.5" />
                 Restart
               </Button>
             </>
@@ -176,7 +165,7 @@ export function DatabaseDetailPage() {
           <Badge variant={runtime.health === 'healthy' ? 'success' : 'warning'}>{runtime.health}</Badge>
         ) : null}
         <Badge variant="outline">
-          <Database aria-hidden className="mr-1 size-3" />
+          <IconDatabase aria-hidden className="me-1 size-3" />
           {record.type} {record.version}
         </Badge>
         {record.port > 0 ? <Badge variant="info">host port {record.port}</Badge> : <Badge variant="outline">internal only</Badge>}
@@ -197,7 +186,7 @@ export function DatabaseDetailPage() {
             description="Applications on the ebox network connect with the internal host."
             actions={
               <Button variant="secondary" size="sm" onClick={() => setReveal((value) => !value)}>
-                {reveal ? <EyeOff aria-hidden className="size-3.5" /> : <Eye aria-hidden className="size-3.5" />}
+                {reveal ? <IconEyeOff aria-hidden className="size-3.5" /> : <IconEye aria-hidden className="size-3.5" />}
                 {reveal ? 'Hide secrets' : 'Reveal secrets'}
               </Button>
             }
@@ -222,7 +211,7 @@ export function DatabaseDetailPage() {
               ) : null}
             </div>
 
-            <p className="mt-3 text-[11px] text-subtle">
+            <p className="mt-3 text-2xs text-subtle">
               Tip: open an application's Environment tab and use “Attach database” to copy these values as
               environment variables.
             </p>
@@ -240,7 +229,7 @@ export function DatabaseDetailPage() {
             {running ? (
               <LogViewer resource="databases" uuid={databaseId} />
             ) : (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 The database container is not running.
               </p>
             )}
@@ -254,7 +243,7 @@ export function DatabaseDetailPage() {
                 <TerminalView target={runtime.container_id} />
               </Suspense>
             ) : (
-              <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+              <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                 The database container is not running.
               </p>
             )}
@@ -287,7 +276,7 @@ export function DatabaseDetailPage() {
               </div>
               <CardContent className="flex justify-end pt-0">
                 <Button variant="danger" size="sm" onClick={() => setDeleteOpen(true)}>
-                  <Trash2 aria-hidden className="size-3.5" />
+                  <IconTrash aria-hidden className="size-3.5" />
                   Delete database
                 </Button>
               </CardContent>

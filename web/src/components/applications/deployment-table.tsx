@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { ExternalLink, Rocket, RotateCcw, XCircle } from 'lucide-react'
+import { IconCircleX, IconExternalLink, IconRocket, IconRotateClockwise } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -53,7 +53,7 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
 
   if (deployments.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-border px-4 py-8 text-center text-xs text-muted">
+      <p className="hatch rounded-control border border-border px-4 py-8 text-center text-xs text-muted">
         No deployments yet.
       </p>
     )
@@ -70,7 +70,7 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
             <TableHead>Trigger</TableHead>
             <TableHead>Duration</TableHead>
             <TableHead>Started</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead className="text-end">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -106,23 +106,23 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
                   {deployment.commit_message ? ` · ${deployment.commit_message}` : ''}
                 </TableCell>
                 <TableCell className="text-xs whitespace-nowrap text-muted">{deployment.trigger}</TableCell>
-                <TableCell className="text-xs whitespace-nowrap text-muted">
+                <TableCell className="tabular text-xs whitespace-nowrap text-muted">
                   {formatDuration(deployment.duration_ms)}
                 </TableCell>
                 <TableCell className="text-xs whitespace-nowrap text-muted">
                   {formatRelative(deployment.created_at)}
                 </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-1">
+                <TableCell className="text-end">
+                  <div className="flex items-center justify-end gap-1.5">
                     <Link to="/deployments/$deploymentId" params={{ deploymentId: deployment.uuid }}>
                       <Button variant="ghost" size="sm">
-                        <ExternalLink aria-hidden className="size-3.5" />
+                        <IconExternalLink aria-hidden className="size-3.5" />
                         Log
                       </Button>
                     </Link>
                     {active ? (
                       <Button variant="ghost" size="sm" onClick={() => setCancelTarget(deployment)}>
-                        <XCircle aria-hidden className="size-3.5 text-danger" />
+                        <IconCircleX aria-hidden className="size-3.5 text-danger" />
                       </Button>
                     ) : null}
                     {onRollback && deployment.status === 'success' && deployment.image_tag ? (
@@ -134,7 +134,7 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
                         }
                       >
                         <DropdownItem onClick={() => onRollback(deployment)}>
-                          <RotateCcw aria-hidden className="size-3.5" />
+                          <IconRotateClockwise aria-hidden className="size-3.5" />
                           Roll back to this version
                         </DropdownItem>
                         <DropdownSeparator />
@@ -148,7 +148,7 @@ export function DeploymentTable({ deployments, showApplication = false, onRollba
                             }
                           }}
                         >
-                          <Rocket aria-hidden className="size-3.5" />
+                          <IconRocket aria-hidden className="size-3.5" />
                           Redeploy current branch
                         </DropdownItem>
                       </DropdownMenu>

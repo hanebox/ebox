@@ -1,4 +1,4 @@
-import { ChevronDown } from 'lucide-react'
+import { IconChevronDown } from '@tabler/icons-react'
 import { forwardRef, type SelectHTMLAttributes } from 'react'
 
 import { cn } from '@/lib/cn'
@@ -17,18 +17,23 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
         ref={ref}
         aria-invalid={invalid || undefined}
         className={cn(
-          'h-8.5 w-full appearance-none rounded-lg border bg-surface pr-8 pl-3 text-sm text-foreground transition-colors',
+          'hit-area h-8.5 w-full appearance-none rounded-control border bg-surface-raised ps-3 pe-8 text-base text-foreground sm:text-sm',
+          'transition-[border-color,background-color,box-shadow] duration-150 ease-out-quint',
+          'hover:border-border-strong',
+          'focus-visible:border-accent focus-visible:bg-surface focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-accent/45',
           'disabled:pointer-events-none disabled:opacity-60',
-          invalid ? 'border-danger' : 'border-border hover:border-border-strong',
+          invalid
+            ? 'border-danger focus-visible:border-danger focus-visible:ring-danger/45'
+            : 'border-border',
           className,
         )}
         {...props}
       >
         {children}
       </select>
-      <ChevronDown
+      <IconChevronDown
         aria-hidden
-        className="pointer-events-none absolute top-1/2 right-2.5 size-3.5 -translate-y-1/2 text-subtle"
+        className="pointer-events-none absolute end-2.5 top-1/2 size-3.5 -translate-y-1/2 text-subtle"
       />
     </div>
   )

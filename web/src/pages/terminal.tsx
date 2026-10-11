@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Container, RotateCw, Server } from 'lucide-react'
+import { IconContainer, IconRotateClockwise2, IconServer } from '@tabler/icons-react'
 import { Suspense, lazy, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -32,7 +32,7 @@ export function TerminalPage() {
         description="Shells into the host and every container ebox manages."
         actions={
           <Button variant="secondary" size="sm" loading={targets.isFetching} onClick={() => void targets.refetch()}>
-            <RotateCw aria-hidden className="size-3.5" />
+            <IconRotateClockwise2 aria-hidden className="size-3.5" />
             Refresh targets
           </Button>
         }
@@ -52,26 +52,26 @@ export function TerminalPage() {
               type="button"
               onClick={() => setTarget(host.id)}
               className={cn(
-                'flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-left transition-colors',
+                'flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-start transition-colors',
                 target === host.id ? 'border-accent bg-accent-soft' : 'hover:bg-surface-raised',
               )}
             >
-              <Server aria-hidden className="size-4 text-muted" />
+              <IconServer aria-hidden className="size-4 text-muted" />
               <span className="flex min-w-0 flex-col">
                 <span className="text-xs text-foreground">{host.name}</span>
-                <span className="text-[11px] text-subtle">host shell</span>
+                <span className="text-2xs text-subtle">host shell</span>
               </span>
             </button>
           ) : null}
 
           <div className="flex items-center justify-between px-1">
-            <span className="text-[11px] tracking-wide text-subtle uppercase">Containers</span>
+            <span className="text-2xs font-medium text-subtle">Containers</span>
             <Badge variant="outline">{containers.length}</Badge>
           </div>
 
-          <div className="flex max-h-[26rem] flex-col gap-2 overflow-auto pr-1">
+          <div className="flex max-h-[26rem] flex-col gap-2 overflow-auto pe-1">
             {containers.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-border px-3 py-4 text-center text-[11px] text-subtle">
+              <p className="hatch rounded-control border border-border px-3 py-4 text-center text-2xs text-subtle">
                 No containers yet. Deploy an application first.
               </p>
             ) : null}
@@ -82,15 +82,15 @@ export function TerminalPage() {
                 key={item.id}
                 onClick={() => setTarget(item.id)}
                 className={cn(
-                  'flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2 text-left transition-colors',
+                  'flex items-center justify-between gap-2 rounded-lg border border-border px-3 py-2 text-start transition-colors',
                   target === item.id ? 'border-accent bg-accent-soft' : 'hover:bg-surface-raised',
                 )}
               >
                 <span className="flex min-w-0 items-center gap-2">
-                  <Container aria-hidden className="size-4 shrink-0 text-muted" />
+                  <IconContainer aria-hidden className="size-4 shrink-0 text-muted" />
                   <span className="flex min-w-0 flex-col">
                     <span className="truncate text-xs text-foreground">{item.name}</span>
-                    <span className="truncate text-[11px] text-subtle">{item.image}</span>
+                    <span className="truncate text-2xs text-subtle">{item.image}</span>
                   </span>
                 </span>
                 <Badge variant={item.state === 'running' ? 'success' : 'default'}>{item.state}</Badge>

@@ -1,16 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from '@tanstack/react-router'
-import {
-  ArrowLeft,
-  CircleStop,
-  ExternalLink,
-  GitBranch,
-  Pencil,
-  Play,
-  RotateCcw,
-  Rocket,
-  Trash2,
-} from 'lucide-react'
+import { IconArrowLeft, IconCircleStop, IconExternalLink, IconGitBranch, IconPencil, IconPlayerPlay, IconRocket, IconRotateClockwise, IconTrash } from '@tabler/icons-react'
 import { Suspense, lazy, useMemo, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -41,7 +31,7 @@ const TerminalView = lazy(() =>
 function MetaRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-      <span className="w-36 shrink-0 text-[11px] tracking-wide text-subtle uppercase">{label}</span>
+      <span className="w-36 shrink-0 text-2xs font-medium text-subtle">{label}</span>
       <div className="flex min-w-0 flex-wrap items-center gap-2 text-xs text-foreground">{children}</div>
     </div>
   )
@@ -170,7 +160,7 @@ export function ApplicationDetailPage() {
             params={{ projectId: data.project?.uuid ?? '' }}
             className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-foreground"
           >
-            <ArrowLeft aria-hidden className="size-3.5" />
+            <IconArrowLeft aria-hidden className="size-3.5" />
             {data.project?.name ?? 'Project'}
           </Link>
         </div>
@@ -190,7 +180,7 @@ export function ApplicationDetailPage() {
             actions={
               <>
                 <Button variant="primary" size="sm" loading={deploy.isPending} onClick={() => deploy.mutate()}>
-                  <Rocket aria-hidden className="size-3.5" />
+                  <IconRocket aria-hidden className="size-3.5" />
                   Deploy
                 </Button>
                 {running ? (
@@ -200,7 +190,7 @@ export function ApplicationDetailPage() {
                     loading={action.isPending}
                     onClick={() => action.mutate('restart')}
                   >
-                    <RotateCcw aria-hidden className="size-3.5" />
+                    <IconRotateClockwise aria-hidden className="size-3.5" />
                     Restart
                   </Button>
                 ) : null}
@@ -212,12 +202,12 @@ export function ApplicationDetailPage() {
                 >
                   {running ? (
                     <>
-                      <CircleStop aria-hidden className="size-3.5" />
+                      <IconCircleStop aria-hidden className="size-3.5" />
                       Stop
                     </>
                   ) : (
                     <>
-                      <Play aria-hidden className="size-3.5" />
+                      <IconPlayerPlay aria-hidden className="size-3.5" />
                       Start
                     </>
                   )}
@@ -321,12 +311,12 @@ export function ApplicationDetailPage() {
                               <TableCell className="font-mono text-xs text-foreground">
                                 {service.name}
                                 {service.name === composeStack.data?.entry_service ? (
-                                  <Badge variant="info" className="ml-2">
+                                  <Badge variant="info" className="ms-2">
                                     ingress
                                   </Badge>
                                 ) : null}
                               </TableCell>
-                              <TableCell className="font-mono text-[11px] text-muted">
+                              <TableCell className="font-mono text-2xs text-muted">
                                 {container?.name ?? '—'}
                               </TableCell>
                               <TableCell>
@@ -334,10 +324,10 @@ export function ApplicationDetailPage() {
                                   {container?.state ?? 'missing'}
                                 </Badge>
                               </TableCell>
-                              <TableCell className="font-mono text-[11px] text-muted">
+                              <TableCell className="font-mono text-2xs text-muted">
                                 {container?.image ?? service.image ?? '(build)'}
                               </TableCell>
-                              <TableCell className="font-mono text-[11px] text-muted">
+                              <TableCell className="font-mono text-2xs text-muted">
                                 {service.ports.join(', ') || '—'}
                               </TableCell>
                             </TableRow>
@@ -355,7 +345,7 @@ export function ApplicationDetailPage() {
                     latest ? (
                       <Link to="/deployments/$deploymentId" params={{ deploymentId: latest.uuid }}>
                         <Button variant="secondary" size="sm">
-                          <ExternalLink aria-hidden className="size-3.5" />
+                          <IconExternalLink aria-hidden className="size-3.5" />
                           Open log
                         </Button>
                       </Link>
@@ -398,7 +388,7 @@ export function ApplicationDetailPage() {
                     sources={logSources}
                   />
                 ) : (
-                  <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+                  <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                     The container is not running. Start or deploy it to read logs.
                   </p>
                 )}
@@ -412,7 +402,7 @@ export function ApplicationDetailPage() {
                     <TerminalView target={runtime.container_id} />
                   </Suspense>
                 ) : (
-                  <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+                  <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
                     The container is not running. Start or deploy it to open a shell.
                   </p>
                 )}
@@ -439,7 +429,7 @@ export function ApplicationDetailPage() {
                       {data.kind === 'image' ? (
                         <Badge variant="outline">image</Badge>
                       ) : (
-                        <GitBranch aria-hidden className="size-3.5 text-muted" />
+                        <IconGitBranch aria-hidden className="size-3.5 text-muted" />
                       )}
                       <span className="text-sm font-medium text-foreground">Configuration</span>
                     </div>
@@ -475,7 +465,7 @@ export function ApplicationDetailPage() {
                     </p>
                     <div>
                       <Button variant="danger" size="sm" onClick={() => setDeleteOpen(true)}>
-                        <Trash2 aria-hidden className="size-3.5" />
+                        <IconTrash aria-hidden className="size-3.5" />
                         Delete application
                       </Button>
                     </div>
@@ -504,7 +494,7 @@ export function ApplicationDetailPage() {
             <span className="text-sm font-medium text-foreground">Application not found</span>
             <Link to="/projects">
               <Button variant="secondary" size="sm">
-                <Pencil aria-hidden className="size-3.5" />
+                <IconPencil aria-hidden className="size-3.5" />
                 Back to projects
               </Button>
             </Link>

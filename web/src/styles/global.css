@@ -2,15 +2,50 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Hover styling only where a pointer can actually hover, so a tap never leaves
+   a stuck hover state behind on touch input. */
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+@custom-variant group-hoverable {
+  @media (hover: hover) and (pointer: fine) {
+    &:is(:where(.group):hover *) {
+      @slot;
+    }
+  }
+}
+
 @theme {
   --font-sans:
-    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
   --font-mono:
-    ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+    'Geist Mono Variable', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1.45;
+  --text-ui: 0.8125rem;
+  --text-ui--line-height: 1.5;
+
+  --radius-tile: 0.375rem;
+  --radius-control: 0.625rem;
+  --radius-panel: 0.75rem;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-icon: cubic-bezier(0.2, 0, 0, 1);
 }
 
 @theme inline {
+  --shadow-border: var(--ring-border);
+  --shadow-border-hover: var(--ring-border-hover);
+
   --color-background: var(--background);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
@@ -20,10 +55,16 @@
   --color-subtle: var(--subtle);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
+
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
   --color-warning: var(--warning);
@@ -35,60 +76,85 @@
 }
 
 :root {
-  --background: oklch(0.985 0.002 260);
+  color-scheme: light;
+
+  --background: oklch(0.985 0.001 300);
   --surface: oklch(1 0 0);
-  --surface-raised: oklch(0.975 0.003 260);
+  --surface-raised: oklch(0.968 0.002 300);
   --surface-overlay: oklch(1 0 0);
-  --foreground: oklch(0.22 0.01 260);
-  --muted: oklch(0.48 0.01 260);
-  --subtle: oklch(0.62 0.008 260);
-  --border: oklch(0.9 0.005 260);
-  --border-strong: oklch(0.84 0.007 260);
+  --foreground: oklch(0.21 0.005 300);
+  --muted: oklch(0.47 0.006 300);
+  --subtle: oklch(0.54 0.005 300);
+  --border: oklch(0.912 0.003 300);
+  --border-strong: oklch(0.855 0.004 300);
 
-  --accent: oklch(0.55 0.19 275);
-  --accent-hover: oklch(0.5 0.2 275);
+  --ring-border:
+    0px 0px 0px 1px oklch(0 0 0 / 0.06), 0px 1px 2px -1px oklch(0 0 0 / 0.06),
+    0px 2px 4px 0px oklch(0 0 0 / 0.04);
+  --ring-border-hover:
+    0px 0px 0px 1px oklch(0 0 0 / 0.08), 0px 1px 2px -1px oklch(0 0 0 / 0.08),
+    0px 2px 4px 0px oklch(0 0 0 / 0.06);
+
+  --primary: oklch(0.2 0.006 300);
+  --primary-hover: oklch(0.31 0.007 300);
+  --primary-foreground: oklch(0.99 0 0);
+
+  --accent: oklch(0.55 0.21 292);
+  --accent-hover: oklch(0.5 0.21 292);
   --accent-foreground: oklch(0.99 0 0);
-  --accent-soft: oklch(0.55 0.19 275 / 0.1);
+  --accent-soft: oklch(0.55 0.21 292 / 0.09);
 
-  --success: oklch(0.62 0.15 155);
-  --success-soft: oklch(0.62 0.15 155 / 0.12);
-  --warning: oklch(0.66 0.15 75);
-  --warning-soft: oklch(0.66 0.15 75 / 0.14);
-  --danger: oklch(0.58 0.2 25);
-  --danger-soft: oklch(0.58 0.2 25 / 0.12);
-  --info: oklch(0.6 0.14 240);
-  --info-soft: oklch(0.6 0.14 240 / 0.12);
+  --success: oklch(0.5 0.13 155);
+  --success-soft: oklch(0.945 0.055 155);
+  --warning: oklch(0.52 0.12 80);
+  --warning-soft: oklch(0.955 0.055 85);
+  --danger: oklch(0.54 0.19 25);
+  --danger-soft: oklch(0.945 0.04 22);
+  --info: oklch(0.52 0.16 258);
+  --info-soft: oklch(0.94 0.04 252);
 
-  --shadow-popover: 0 8px 30px oklch(0 0 0 / 0.12), 0 2px 8px oklch(0 0 0 / 0.06);
-  --radius-panel: 0.75rem;
+  --shadow-popover:
+    0 1px 2px oklch(0 0 0 / 0.06), 0 8px 24px oklch(0 0 0 / 0.08), 0 2px 6px oklch(0 0 0 / 0.04);
 }
 
 .dark {
-  --background: oklch(0.165 0.008 260);
-  --surface: oklch(0.195 0.009 260);
-  --surface-raised: oklch(0.225 0.01 260);
-  --surface-overlay: oklch(0.215 0.01 260);
-  --foreground: oklch(0.93 0.005 260);
-  --muted: oklch(0.68 0.01 260);
-  --subtle: oklch(0.55 0.01 260);
-  --border: oklch(1 0 0 / 0.08);
-  --border-strong: oklch(1 0 0 / 0.14);
+  color-scheme: dark;
 
-  --accent: oklch(0.68 0.16 275);
-  --accent-hover: oklch(0.73 0.16 275);
-  --accent-foreground: oklch(0.14 0.02 275);
-  --accent-soft: oklch(0.68 0.16 275 / 0.16);
+  --background: oklch(0.145 0.004 300);
+  --surface: oklch(0.178 0.005 300);
+  --surface-raised: oklch(0.212 0.006 300);
+  --surface-overlay: oklch(0.198 0.005 300);
+  --foreground: oklch(0.968 0.002 300);
+  --muted: oklch(0.705 0.006 300);
+  --subtle: oklch(0.62 0.006 300);
+  --border: oklch(1 0 0 / 0.09);
+  --border-strong: oklch(1 0 0 / 0.17);
 
-  --success: oklch(0.72 0.15 155);
-  --success-soft: oklch(0.72 0.15 155 / 0.14);
-  --warning: oklch(0.76 0.14 75);
-  --warning-soft: oklch(0.76 0.14 75 / 0.14);
-  --danger: oklch(0.68 0.18 25);
-  --danger-soft: oklch(0.68 0.18 25 / 0.16);
-  --info: oklch(0.7 0.13 240);
-  --info-soft: oklch(0.7 0.13 240 / 0.14);
+  --ring-border: 0 0 0 1px oklch(1 0 0 / 0.08);
+  --ring-border-hover: 0 0 0 1px oklch(1 0 0 / 0.13);
 
-  --shadow-popover: 0 12px 40px oklch(0 0 0 / 0.5), 0 2px 10px oklch(0 0 0 / 0.35);
+  --primary: oklch(0.97 0.002 300);
+  --primary-hover: oklch(0.9 0.003 300);
+  --primary-foreground: oklch(0.17 0.005 300);
+
+  --accent: oklch(0.71 0.17 292);
+  --accent-hover: oklch(0.78 0.15 292);
+  --accent-foreground: oklch(0.17 0.02 292);
+  --accent-soft: oklch(0.71 0.17 292 / 0.15);
+
+  /* Chip tints are decoupled from the chip text lightness: a mid-lightness tint
+     keeps every measured pair above 4.5:1 instead of plateauing near 4.3:1. */
+  --success: oklch(0.81 0.14 155);
+  --success-soft: oklch(0.6 0.14 155 / 0.16);
+  --warning: oklch(0.85 0.13 84);
+  --warning-soft: oklch(0.6 0.13 84 / 0.16);
+  --danger: oklch(0.82 0.14 22);
+  --danger-soft: oklch(0.6 0.14 22 / 0.16);
+  --info: oklch(0.79 0.11 232);
+  --info-soft: oklch(0.6 0.11 232 / 0.16);
+
+  --shadow-popover:
+    0 0 0 1px oklch(1 0 0 / 0.06), 0 16px 40px oklch(0 0 0 / 0.6), 0 4px 12px oklch(0 0 0 / 0.4);
 }
 
 @layer base {
@@ -96,22 +162,24 @@
     border-color: var(--border);
   }
 
-  html {
-    color-scheme: light;
+  svg {
+    stroke-width: 1.75;
   }
 
-  html.dark {
-    color-scheme: dark;
+  html {
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: 'cv11', 'ss01';
+    font-feature-settings: 'cv01', 'cv03', 'cv04';
+    font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
     background: var(--accent-soft);
+    color: var(--foreground);
   }
 
   :focus-visible {
@@ -120,24 +188,83 @@
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
   }
 
   ::-webkit-scrollbar-thumb {
     background: var(--border-strong);
-    border-radius: 8px;
-    border: 3px solid transparent;
-    background-clip: content-box;
+    border-radius: 999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--subtle);
-    border: 3px solid transparent;
-    background-clip: content-box;
   }
 
-  ::-webkit-scrollbar-track {
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
     background: transparent;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      /* Keep opacity and colour feedback, drop every transform and slide. */
+      transition-property: opacity, color, background-color, border-color, fill, stroke !important;
+      transition-duration: 150ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    :focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+}
+
+@layer components {
+  /* Keeps the visible control small while widening its target on touch input.
+     The 2px inset never overlaps a neighbour at the tightest cluster gap (4px). */
+  .hit-area {
+    position: relative;
+  }
+
+  @media (pointer: coarse) {
+    .hit-area::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+    }
+  }
+
+  /* Press feedback is motion: it only runs when motion is welcome. */
+  .press {
+    @media (prefers-reduced-motion: no-preference) {
+      &:active {
+        transform: scale(0.96);
+      }
+    }
+  }
+}
+
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0px,
+    transparent 5px,
+    var(--border) 5px,
+    var(--border) 6px
+  );
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
 }

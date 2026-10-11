@@ -1,14 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from '@tanstack/react-router'
-import {
-  ArrowLeft,
-  ExternalLink,
-  GitBranch,
-  Pencil,
-  PlugZap,
-  RefreshCw,
-  Trash2,
-} from 'lucide-react'
+import { IconArrowLeft, IconExternalLink, IconGitBranch, IconPencil, IconPlugConnected, IconRefresh, IconTrash } from '@tabler/icons-react'
 import { useState, type ReactNode } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -33,7 +25,7 @@ import { formatDateTime } from '@/lib/format'
 function InfoRow({ label, children }: { label: string; children: ReactNode }) {
   return (
     <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-4">
-      <span className="w-40 shrink-0 text-[11px] tracking-wide text-subtle uppercase">
+      <span className="w-40 shrink-0 text-2xs font-medium text-subtle">
         {label}
       </span>
       <div className="flex min-w-0 items-center gap-2 text-xs text-foreground">{children}</div>
@@ -88,7 +80,7 @@ function InstallationPanel({ source }: { source: Source }) {
                 )
               }
             >
-              <PlugZap aria-hidden className="size-3.5" />
+              <IconPlugConnected aria-hidden className="size-3.5" />
               Install on GitHub
             </Button>
           ) : null}
@@ -127,7 +119,7 @@ function InstallationPanel({ source }: { source: Source }) {
                 >
                   <div className="flex flex-col">
                     <span className="text-xs text-foreground">{installation.account}</span>
-                    <span className="text-[11px] text-subtle">
+                    <span className="text-2xs text-subtle">
                       {installation.type} · ID {installation.id}
                     </span>
                   </div>
@@ -204,7 +196,7 @@ export function SourceDetailPage() {
           to="/sources"
           className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-foreground"
         >
-          <ArrowLeft aria-hidden className="size-3.5" />
+          <IconArrowLeft aria-hidden className="size-3.5" />
           All sources
         </Link>
       </div>
@@ -213,7 +205,7 @@ export function SourceDetailPage() {
 
       {source.isError ? (
         <EmptyState
-          icon={<GitBranch aria-hidden />}
+          icon={<IconGitBranch aria-hidden />}
           title="Source not found"
           description="It may have been deleted. Head back to the sources list."
           action={
@@ -241,7 +233,7 @@ export function SourceDetailPage() {
                   onClick={() => testMutation.mutate()}
                   loading={testMutation.isPending}
                 >
-                  <RefreshCw aria-hidden className="size-3.5" />
+                  <IconRefresh aria-hidden className="size-3.5" />
                   Test connection
                 </Button>
                 <Button
@@ -252,11 +244,11 @@ export function SourceDetailPage() {
                     setRenameOpen(true)
                   }}
                 >
-                  <Pencil aria-hidden className="size-3.5" />
+                  <IconPencil aria-hidden className="size-3.5" />
                   Rename
                 </Button>
                 <Button variant="ghost" size="sm" onClick={() => setDeleteOpen(true)}>
-                  <Trash2 aria-hidden className="size-3.5 text-danger" />
+                  <IconTrash aria-hidden className="size-3.5 text-danger" />
                   <span className="text-danger">Delete</span>
                 </Button>
               </>
@@ -269,7 +261,7 @@ export function SourceDetailPage() {
                 {source.data.type === 'github_app' ? (
                   <GitHubIcon className="size-4 text-muted" />
                 ) : (
-                  <GitBranch aria-hidden className="size-4 text-muted" />
+                  <IconGitBranch aria-hidden className="size-4 text-muted" />
                 )}
                 <span className="text-sm font-medium text-foreground">
                   {source.data.type === 'github_app' ? 'GitHub App' : 'Git source'}
@@ -314,7 +306,7 @@ export function SourceDetailPage() {
                         className="inline-flex items-center gap-1.5 text-accent transition-opacity hover:opacity-80"
                       >
                         {source.data.html_url}
-                        <ExternalLink aria-hidden className="size-3" />
+                        <IconExternalLink aria-hidden className="size-3" />
                       </a>
                     </InfoRow>
                   ) : null}

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { GitBranch, Plus, Settings2 } from 'lucide-react'
+import { IconGitBranch, IconPlus, IconSettings } from '@tabler/icons-react'
 import { useEffect, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -133,7 +133,7 @@ export function SourcesPage() {
               Connect GitHub App
             </Button>
             <Button variant="secondary" onClick={() => setGitDialogOpen(true)}>
-              <Plus aria-hidden className="size-3.5" />
+              <IconPlus aria-hidden className="size-3.5" />
               Add git source
             </Button>
           </>
@@ -149,7 +149,7 @@ export function SourcesPage() {
 
       {sources.data && sources.data.length === 0 ? (
         <EmptyState
-          icon={<GitBranch aria-hidden />}
+          icon={<IconGitBranch aria-hidden />}
           title="No sources connected"
           description="Sources tell the panel where your code lives. Connect a GitHub App for one-click repositories, or paste any git URL."
           action={
@@ -164,7 +164,7 @@ export function SourcesPage() {
                   Connect GitHub App
                 </Button>
                 <Button variant="secondary" onClick={() => setGitDialogOpen(true)}>
-                  <Plus aria-hidden className="size-3.5" />
+                  <IconPlus aria-hidden className="size-3.5" />
                   Add git source
                 </Button>
               </div>
@@ -173,7 +173,7 @@ export function SourcesPage() {
                 className="inline-flex items-center gap-1.5 text-xs text-subtle transition-colors hover:text-foreground"
                 onClick={() => setGithubDialogOpen(true)}
               >
-                <Settings2 aria-hidden className="size-3.5" />
+                <IconSettings aria-hidden className="size-3.5" />
                 Prefer to create the GitHub App yourself? Set it up manually
               </button>
             </div>
@@ -193,7 +193,7 @@ export function SourcesPage() {
             className="inline-flex w-fit items-center gap-1.5 text-xs text-subtle transition-colors hover:text-foreground"
             onClick={() => setGithubDialogOpen(true)}
           >
-            <Settings2 aria-hidden className="size-3.5" />
+            <IconSettings aria-hidden className="size-3.5" />
             Connect a GitHub App manually
           </button>
         </>

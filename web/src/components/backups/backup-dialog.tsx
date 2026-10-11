@@ -160,7 +160,7 @@ export function BackupDialog({
           <div className="flex items-center justify-between gap-3 rounded-lg border border-border p-3">
             <div className="flex flex-col">
               <span className="text-xs text-foreground">Stop the container during the backup</span>
-              <span className="text-[11px] text-subtle">
+              <span className="text-2xs text-subtle">
                 Pauses containers using this volume so file level copies are consistent.
               </span>
             </div>
@@ -171,7 +171,7 @@ export function BackupDialog({
         <div className="flex items-center justify-between gap-3 rounded-lg border border-border p-3">
           <div className="flex flex-col">
             <span className="text-xs text-foreground">Enabled</span>
-            <span className="text-[11px] text-subtle">Disabled schedules only run when you press Run now.</span>
+            <span className="text-2xs text-subtle">Disabled schedules only run when you press Run now.</span>
           </div>
           <Switch checked={enabled} onCheckedChange={setEnabled} aria-label="Enabled" />
         </div>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Boxes, Container, Database, HardDrive, Network, Trash2 } from 'lucide-react'
+import { IconBox, IconContainer, IconDatabase, IconNetwork, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 import { Link } from '@tanstack/react-router'
 
@@ -15,11 +15,11 @@ import { toast } from '@/components/ui/toast'
 import { ApiError } from '@/lib/api'
 import { formatBytes, formatPercent } from '@/lib/format'
 
-const resourceIcons: Record<string, typeof Container> = {
-  application: Boxes,
-  database: Database,
-  service: Container,
-  proxy: Network,
+const resourceIcons: Record<string, typeof IconContainer> = {
+  application: IconBox,
+  database: IconDatabase,
+  service: IconContainer,
+  proxy: IconNetwork,
 }
 
 const resourceLabels: Record<string, string> = {
@@ -55,53 +55,53 @@ export function ResourcesCard() {
   return (
     <Card className="p-4">
       <div className="flex items-start justify-between gap-3">
-        <div>
+        <div className="flex flex-col gap-0.5">
           <CardTitle>Resources</CardTitle>
-          <CardDescription className="mt-1">
-            Managed containers with live CPU and memory usage.
-          </CardDescription>
+          <CardDescription>Managed containers with live CPU and memory usage.</CardDescription>
         </div>
         <Badge variant="outline">{list.length}</Badge>
       </div>
 
       {containers.isPending ? (
         <div className="mt-3 flex flex-col gap-2">
-          <Skeleton className="h-8" />
-          <Skeleton className="h-8" />
+          <Skeleton className="h-9" />
+          <Skeleton className="h-9" />
         </div>
       ) : null}
 
       {containers.isSuccess && list.length === 0 ? (
-        <p className="mt-3 rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+        <p className="hatch mt-3 rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
           Nothing deployed yet. Applications and services you create appear here.
         </p>
       ) : null}
 
       {list.length > 0 ? (
-        <div className="mt-3 flex flex-col divide-y divide-border/60">
+        <div className="mt-3 flex flex-col divide-y divide-border">
           {list.map((container) => {
             const resourceType = container.labels?.['ebox.resource-type'] ?? 'container'
-            const Icon = resourceIcons[resourceType] ?? Container
+            const Icon = resourceIcons[resourceType] ?? IconContainer
             const link = containerLink(container)
             const name = container.labels?.['ebox.name'] ?? container.name
 
             return (
               <div key={container.id} className="flex items-center justify-between gap-3 py-2.5">
                 <div className="flex min-w-0 items-center gap-2.5">
-                  <Icon aria-hidden className="size-4 shrink-0 text-muted" />
-                  <div className="flex min-w-0 flex-col">
+                  <span className="flex size-7 shrink-0 items-center justify-center rounded-tile border border-border bg-surface-raised text-muted">
+                    <Icon aria-hidden className="size-3.5" />
+                  </span>
+                  <div className="flex min-w-0 flex-col gap-0.5">
                     {link ? (
                       <Link
                         to={link.to}
                         params={link.params}
-                        className="truncate text-xs text-foreground hover:underline"
+                        className="truncate text-ui text-foreground hover:underline"
                       >
                         {name}
                       </Link>
                     ) : (
-                      <span className="truncate text-xs text-foreground">{name}</span>
+                      <span className="truncate text-ui text-foreground">{name}</span>
                     )}
-                    <span className="truncate text-[11px] text-subtle">
+                    <span className="truncate text-2xs text-subtle">
                       {resourceLabels[resourceType] ?? resourceType} · {container.image}
                     </span>
                   </div>
@@ -109,12 +109,15 @@ export function ResourcesCard() {
 
                 <div className="flex items-center gap-3">
                   {container.stats ? (
-                    <div className="hidden items-center gap-3 text-[11px] text-muted sm:flex">
-                      <span className="font-mono">{formatPercent(container.stats.cpu_percent)}</span>
-                      <span className="font-mono">{formatBytes(container.stats.memory_usage)}</span>
+                    <div className="hidden items-center gap-3 text-2xs text-muted sm:flex">
+                      <span className="tabular">{formatPercent(container.stats.cpu_percent)}</span>
+                      <span className="tabular">{formatBytes(container.stats.memory_usage)}</span>
                     </div>
                   ) : null}
-                  <Badge variant={container.state === 'running' ? 'success' : 'default'} className="gap-1.5">
+                  <Badge
+                    variant={container.state === 'running' ? 'success' : 'default'}
+                    className="gap-1.5"
+                  >
                     {container.state === 'running' ? <StatusDot variant="success" /> : null}
                     {container.state}
                   </Badge>
@@ -131,7 +134,12 @@ export function ResourcesCard() {
 export function DiskUsageCard() {
   const queryClient = useQueryClient()
   const [pruneOpen, setPruneOpen] = useState(false)
-  const [targets, setTargets] = useState({ images: true, build_cache: true, containers: false, volumes: false })
+  const [targets, setTargets] = useState({
+    images: true,
+    build_cache: true,
+    containers: false,
+    volumes: false,
+  })
 
   const usage = useQuery({
     queryKey: ['system-disk'],
@@ -161,12 +169,12 @@ export function DiskUsageCard() {
   return (
     <Card className="p-4">
       <div className="flex items-start justify-between gap-3">
-        <div>
+        <div className="flex flex-col gap-0.5">
           <CardTitle>Disk usage</CardTitle>
-          <CardDescription className="mt-1">Images, containers, volumes and build cache.</CardDescription>
+          <CardDescription>Images, containers, volumes and build cache.</CardDescription>
         </div>
         <Button variant="ghost" size="sm" onClick={() => setPruneOpen(true)}>
-          <Trash2 aria-hidden className="size-3.5" />
+          <IconTrash aria-hidden className="size-3.5" />
           Prune
         </Button>
       </div>
@@ -179,7 +187,7 @@ export function DiskUsageCard() {
       ) : null}
 
       {usage.isError ? (
-        <p className="mt-3 rounded-lg border border-danger/40 bg-danger-soft p-2 text-[11px] text-danger">
+        <p className="mt-3 rounded-control border border-danger/40 bg-danger-soft p-2 text-2xs text-danger">
           Docker is not reachable.
         </p>
       ) : null}
@@ -194,21 +202,22 @@ export function DiskUsageCard() {
           ].map((row) => (
             <div key={row.key} className="flex items-center justify-between gap-3">
               <dt className="flex items-center gap-2 text-xs text-subtle">
-                <HardDrive aria-hidden className="size-3.5" />
                 {row.label}
                 <span className="text-subtle/70">{data[row.key].count} items</span>
               </dt>
-              <dd className="flex items-center gap-3 font-mono text-xs text-foreground">
+              <dd className="tabular flex items-center gap-3 text-xs text-foreground">
                 <span>{formatBytes(data[row.key].size)}</span>
                 {data[row.key].reclaimable > 0 ? (
-                  <span className="text-warning">{formatBytes(data[row.key].reclaimable)} reclaimable</span>
+                  <span className="text-warning">
+                    {formatBytes(data[row.key].reclaimable)} reclaimable
+                  </span>
                 ) : null}
               </dd>
             </div>
           ))}
           <div className="flex items-center justify-between gap-3 border-t border-border pt-2">
             <dt className="text-xs font-medium text-foreground">Total</dt>
-            <dd className="font-mono text-xs text-foreground">{formatBytes(data.total_size)}</dd>
+            <dd className="tabular text-xs text-foreground">{formatBytes(data.total_size)}</dd>
           </div>
         </dl>
       ) : null}

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { BellRing, Plus, Send, Trash2 } from 'lucide-react'
+import { IconBellRinging, IconPlus, IconSend, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -170,7 +170,7 @@ function ChannelDialog({
           <div className="flex items-center justify-between gap-3">
             <div className="flex flex-col">
               <span className="text-xs text-foreground">Events</span>
-              <span className="text-[11px] text-subtle">None selected means every event.</span>
+              <span className="text-2xs text-subtle">None selected means every event.</span>
             </div>
             <Button
               type="button"
@@ -195,7 +195,7 @@ function ChannelDialog({
                     )
                   }
                   className={cn(
-                    'flex items-center gap-2 rounded-md border px-2 py-1.5 text-left text-[11px] transition-colors',
+                    'flex items-center gap-2 rounded-md border px-2 py-1.5 text-start text-2xs transition-colors',
                     checked
                       ? 'border-accent/60 bg-accent-soft text-foreground'
                       : 'border-border text-muted hover:border-accent/40',
@@ -217,7 +217,7 @@ function ChannelDialog({
         <div className="flex items-center justify-between gap-3 rounded-lg border border-border p-3">
           <div className="flex flex-col">
             <span className="text-xs text-foreground">Enabled</span>
-            <span className="text-[11px] text-subtle">Disabled channels stay configured but receive nothing.</span>
+            <span className="text-2xs text-subtle">Disabled channels stay configured but receive nothing.</span>
           </div>
           <Switch checked={enabled} onCheckedChange={setEnabled} aria-label="Enabled" />
         </div>
@@ -300,8 +300,8 @@ export function NotificationsSection() {
           </div>
           <div className="flex gap-2">
             <Button variant="secondary" size="sm" onClick={() => setBroadcastOpen(true)}>
-              <Send aria-hidden className="size-3.5" />
-              Send message
+              <IconSend aria-hidden className="size-3.5" />
+              IconSend message
             </Button>
             <Button
               variant="primary"
@@ -311,7 +311,7 @@ export function NotificationsSection() {
                 setDialogOpen(true)
               }}
             >
-              <Plus aria-hidden className="size-3.5" />
+              <IconPlus aria-hidden className="size-3.5" />
               Add channel
             </Button>
           </div>
@@ -322,7 +322,7 @@ export function NotificationsSection() {
 
           {channels.isSuccess && rows.length === 0 ? (
             <EmptyState
-              icon={<BellRing aria-hidden />}
+              icon={<IconBellRinging aria-hidden />}
               title="No channels yet"
               description="Add a webhook or an email target to hear about failures."
             />
@@ -340,7 +340,7 @@ export function NotificationsSection() {
                     <Badge variant="outline">{channel.type}</Badge>
                     {channel.enabled ? <Badge variant="success">on</Badge> : <Badge variant="outline">off</Badge>}
                   </div>
-                  <span className="truncate text-[11px] text-subtle">
+                  <span className="truncate text-2xs text-subtle">
                     {(channel.subscribed_events ?? []).length === 0
                       ? 'all events'
                       : channel.subscribed_events.map((event) => eventLabels[event] ?? event).join(', ')}
@@ -371,7 +371,7 @@ export function NotificationsSection() {
                     Edit
                   </Button>
                   <Button variant="ghost" size="sm" aria-label="Delete channel" onClick={() => setDeleteTarget(channel)}>
-                    <Trash2 aria-hidden className="size-3.5" />
+                    <IconTrash aria-hidden className="size-3.5" />
                   </Button>
                 </div>
               </div>
@@ -388,7 +388,7 @@ export function NotificationsSection() {
         <CardContent>
           {history.isPending ? <Skeleton className="h-24" /> : null}
           {history.isSuccess && (history.data?.length ?? 0) === 0 ? (
-            <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+            <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
               Nothing delivered yet.
             </p>
           ) : null}
@@ -406,9 +406,9 @@ export function NotificationsSection() {
               <TableBody>
                 {history.data?.map((delivery) => (
                   <TableRow key={delivery.id}>
-                    <TableCell className="text-[11px] text-muted">{formatDateTime(delivery.created_at)}</TableCell>
+                    <TableCell className="text-2xs text-muted">{formatDateTime(delivery.created_at)}</TableCell>
                     <TableCell className="text-xs text-foreground">{delivery.channel}</TableCell>
-                    <TableCell className="font-mono text-[10px] text-subtle">{delivery.event}</TableCell>
+                    <TableCell className="font-mono text-2xs text-subtle">{delivery.event}</TableCell>
                     <TableCell className="max-w-[22rem] truncate text-xs text-foreground" title={delivery.title}>
                       {delivery.title}
                     </TableCell>
@@ -418,7 +418,7 @@ export function NotificationsSection() {
                         {delivery.status === 'failed' && delivery.attempts > 0 ? ` · ${delivery.attempts}x` : ''}
                       </Badge>
                       {delivery.error ? (
-                        <span className="mt-1 block max-w-[16rem] truncate text-[10px] text-danger" title={delivery.error}>
+                        <span className="mt-1 block max-w-[16rem] truncate text-2xs text-danger" title={delivery.error}>
                           {delivery.error}
                         </span>
                       ) : null}
@@ -469,7 +469,7 @@ export function NotificationsSection() {
               Cancel
             </Button>
             <Button type="submit" variant="primary" loading={broadcast.isPending}>
-              Send
+              IconSend
             </Button>
           </div>
         </form>

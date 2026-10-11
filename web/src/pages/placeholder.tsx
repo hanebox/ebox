@@ -1,4 +1,4 @@
-import type { LucideIcon } from 'lucide-react'
+import type { Icon } from '@tabler/icons-react'
 
 import { PageHeader } from '@/components/layout/page-header'
 import { Badge } from '@/components/ui/badge'
@@ -9,7 +9,7 @@ export interface PlaceholderPageProps {
   title: string
   description: string
   milestone: string
-  icon: LucideIcon
+  icon: Icon
   features: string[]
 }
 
@@ -21,7 +21,7 @@ export function PlaceholderPage({
   features,
 }: PlaceholderPageProps) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       <PageHeader
         title={title}
         description={description}
@@ -35,10 +35,8 @@ export function PlaceholderPage({
       />
 
       <Card className="p-4">
-        <p className="text-xs font-semibold tracking-wider text-subtle uppercase">
-          Planned capabilities
-        </p>
-        <ul className="mt-2 grid gap-1.5 text-sm text-muted sm:grid-cols-2">
+        <p className="text-2xs font-medium text-subtle">Planned capabilities</p>
+        <ul className="mt-2 grid gap-1.5 text-ui text-muted sm:grid-cols-2">
           {features.map((feature) => (
             <li key={feature} className="flex items-start gap-2">
               <span aria-hidden className="mt-1.5 size-1 shrink-0 rounded-full bg-subtle" />

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Download, RotateCcw, Trash2 } from 'lucide-react'
+import { IconDownload, IconRotateClockwise, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api, backupDownloadURL } from '@/api/endpoints'
@@ -40,7 +40,7 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
 
   if (runs.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+      <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
         No runs yet. Press Run now to take the first backup.
       </p>
     )
@@ -68,16 +68,16 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
               <TableCell>
                 <Badge variant={runStatusVariant(run.status)}>{run.status}</Badge>
                 {run.error ? (
-                  <span className="mt-1 block max-w-xs truncate text-[10px] text-danger" title={run.error}>
+                  <span className="mt-1 block max-w-xs truncate text-2xs text-danger" title={run.error}>
                     {run.error}
                   </span>
                 ) : null}
               </TableCell>
-              <TableCell className="font-mono text-[11px] text-muted">{formatBytes(run.size_bytes)}</TableCell>
-              <TableCell className="font-mono text-[11px] text-muted">
+              <TableCell className="font-mono text-2xs text-muted">{formatBytes(run.size_bytes)}</TableCell>
+              <TableCell className="font-mono text-2xs text-muted">
                 {run.duration_ms ? `${(run.duration_ms / 1000).toFixed(1)}s` : '—'}
               </TableCell>
-              <TableCell className="max-w-[14rem] truncate font-mono text-[11px] text-subtle">
+              <TableCell className="max-w-[14rem] truncate font-mono text-2xs text-subtle">
                 {run.file ? run.file.split('/').pop() : '—'}
               </TableCell>
               <TableCell>
@@ -86,7 +86,7 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
                     <>
                       <a href={backupDownloadURL(backupUUID, run.id)} download>
                         <Button variant="ghost" size="sm" aria-label="Download backup">
-                          <Download aria-hidden className="size-3.5" />
+                          <IconDownload aria-hidden className="size-3.5" />
                         </Button>
                       </a>
                       <Button
@@ -95,7 +95,7 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
                         aria-label="Restore backup"
                         onClick={() => setRestoreTarget(run)}
                       >
-                        <RotateCcw aria-hidden className="size-3.5" />
+                        <IconRotateClockwise aria-hidden className="size-3.5" />
                       </Button>
                     </>
                   ) : null}
@@ -105,7 +105,7 @@ export function BackupRunsTable({ backupUUID, runs }: { backupUUID: string; runs
                     aria-label="Delete run"
                     onClick={() => setDeleteTarget(run)}
                   >
-                    <Trash2 aria-hidden className="size-3.5" />
+                    <IconTrash aria-hidden className="size-3.5" />
                   </Button>
                 </div>
               </TableCell>

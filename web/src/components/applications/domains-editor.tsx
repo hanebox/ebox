@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Globe, Info, Plus, Trash2 } from 'lucide-react'
+import { IconInfoCircle, IconPlus, IconTrash, IconWorld } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -100,7 +100,7 @@ export function DomainsEditor({
           </CardDescription>
         </div>
         <Button variant="secondary" size="sm" onClick={() => setAddOpen(true)}>
-          <Plus aria-hidden className="size-3.5" />
+          <IconPlus aria-hidden className="size-3.5" />
           Add domain
         </Button>
       </div>
@@ -110,7 +110,7 @@ export function DomainsEditor({
 
         {list.length === 0 ? (
           <EmptyState
-            icon={<Globe aria-hidden />}
+            icon={<IconWorld aria-hidden />}
             title="No domains yet"
             description="Add a hostname to publish this application."
           />
@@ -119,7 +119,7 @@ export function DomainsEditor({
             {list.map((domain) => (
               <div key={domain.id} className="flex flex-wrap items-center justify-between gap-3 px-3 py-2.5">
                 <div className="flex items-center gap-2">
-                  <Globe aria-hidden className="size-3.5 text-subtle" />
+                  <IconWorld aria-hidden className="size-3.5 text-subtle" />
                   <span className="font-mono text-xs text-foreground">{domain.host}</span>
                   {domain.https ? <Badge variant="success">https</Badge> : <Badge variant="outline">http</Badge>}
                   {domain.is_primary ? <Badge variant="info">primary</Badge> : null}
@@ -141,7 +141,7 @@ export function DomainsEditor({
                     aria-label={`Delete ${domain.host}`}
                     onClick={() => setDeleteTarget(domain)}
                   >
-                    <Trash2 aria-hidden className="size-3.5 text-danger" />
+                    <IconTrash aria-hidden className="size-3.5 text-danger" />
                   </Button>
                 </div>
               </div>
@@ -149,8 +149,8 @@ export function DomainsEditor({
           </div>
         )}
 
-        <p className="mt-3 flex items-start gap-2 text-[11px] text-subtle">
-          <Info aria-hidden className="mt-0.5 size-3.5 shrink-0" />
+        <p className="mt-3 flex items-start gap-2 text-2xs text-subtle">
+          <IconInfoCircle aria-hidden className="mt-0.5 size-3.5 shrink-0" />
           Point an A record at this server. Certificates are issued automatically once Traefik is
           connected (proxy milestone).
         </p>

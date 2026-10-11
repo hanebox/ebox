@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { RefreshCw } from 'lucide-react'
+import { IconRefresh } from '@tabler/icons-react'
 
 import { AreaChart } from '@/components/charts/area-chart'
 import { DiskUsageCard, ResourcesCard } from '@/components/domain/runtime-cards'
@@ -8,6 +8,7 @@ import { PageHeader } from '@/components/layout/page-header'
 import { Badge, StatusDot } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardTitle } from '@/components/ui/card'
+import { Segmented } from '@/components/ui/segmented'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTab } from '@/components/ui/tabs'
 import { Tooltip } from '@/components/ui/tooltip'
@@ -52,7 +53,7 @@ export function DashboardPage() {
   const config = metricConfig[metric]
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       <PageHeader
         title="Dashboard"
         description="Live host and runtime overview."
@@ -67,7 +68,7 @@ export function DashboardPage() {
               }}
               aria-label="Refresh"
             >
-              <RefreshCw aria-hidden className="size-4" />
+              <IconRefresh aria-hidden className="size-4" />
             </Button>
           </Tooltip>
         }
@@ -76,7 +77,7 @@ export function DashboardPage() {
       {!sample ? (
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
-            <Skeleton key={index} className="h-32" />
+            <Skeleton key={index} className="h-32 rounded-panel" />
           ))}
         </div>
       ) : (
@@ -114,7 +115,23 @@ export function DashboardPage() {
 
       <div className="grid gap-4 lg:grid-cols-3">
         <Card className="flex flex-col lg:col-span-2">
-          <div className="flex flex-wrap items-center justify-between gap-3 p-4 pb-2">
+          <div className="flex flex-wrap items-start justify-between gap-3 p-4 pb-3">
+            <div className="flex flex-col gap-0.5">
+              <CardTitle>Host metrics</CardTitle>
+              <CardDescription>Sampled every few seconds from this machine.</CardDescription>
+            </div>
+            <Segmented
+              value={range}
+              onValueChange={setRange}
+              aria-label="Time range"
+              options={[
+                { value: '20m', label: '20m' },
+                { value: '24h', label: '24h' },
+              ]}
+            />
+          </div>
+
+          <div className="px-4">
             <Tabs value={metric} onValueChange={(value) => setMetric(value as MetricKey)}>
               <TabsList>
                 {(Object.keys(metricConfig) as MetricKey[]).map((key) => (
@@ -124,31 +141,14 @@ export function DashboardPage() {
                 ))}
               </TabsList>
             </Tabs>
-
-            <div className="flex items-center gap-1 rounded-lg border border-border p-0.5">
-              {(['20m', '24h'] as const).map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => setRange(option)}
-                  className={
-                    option === range
-                      ? 'rounded-md bg-surface-raised px-2 py-1 text-xs font-medium text-foreground'
-                      : 'rounded-md px-2 py-1 text-xs text-muted transition-colors hover:text-foreground'
-                  }
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
           </div>
 
-          <div className="px-4 pb-4">
+          <div className="p-4 pt-3">
             <AreaChart
               data={series}
               color={config.color}
               formatValue={config.format}
-              height={180}
+              height={200}
               maxOverride={config.unit === '%' ? 100 : undefined}
             />
           </div>
@@ -175,7 +175,7 @@ export function DashboardPage() {
                 <dd>
                   {system.data.docker.available ? (
                     <Badge variant="success">
-                      <StatusDot variant="success" className="mr-1.5" />
+                      <StatusDot variant="success" />
                       {system.data.docker.version}
                     </Badge>
                   ) : (
@@ -208,7 +208,7 @@ export function DashboardPage() {
         <CardDescription className="mt-1">
           The panel is being built in milestones. What is live today and what is next:
         </CardDescription>
-        <ul className="mt-3 grid gap-2 text-sm sm:grid-cols-2">
+        <ul className="mt-3 flex flex-col divide-y divide-border">
           <RoadmapRow
             milestone="M0"
             done
@@ -272,10 +272,12 @@ function RoadmapRow({
   done?: boolean
 }) {
   return (
-    <li className="flex items-start gap-3 rounded-lg border border-border p-3">
-      <Badge variant={done ? 'success' : 'outline'}>{milestone}</Badge>
-      <div className="flex min-w-0 flex-col">
-        <span className="text-sm font-medium text-foreground">{title}</span>
+    <li className="flex items-start gap-3 py-2.5 first:pt-0 last:pb-0">
+      <Badge variant={done ? 'success' : 'outline'} className="mt-0.5 w-9 justify-center">
+        {milestone}
+      </Badge>
+      <div className="flex min-w-0 flex-col gap-0.5">
+        <span className="text-ui font-medium text-foreground">{title}</span>
         <span className="text-xs text-muted">{description}</span>
       </div>
     </li>

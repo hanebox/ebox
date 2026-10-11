@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useNavigate } from '@tanstack/react-router'
-import { ServerCog } from 'lucide-react'
+import { IconServer } from '@tabler/icons-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -10,6 +10,7 @@ import { api } from '@/api/endpoints'
 import { Button } from '@/components/ui/button'
 import { Field } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { LogoMark } from '@/components/ui/logo'
 import { Switch } from '@/components/ui/switch'
 import { toast } from '@/components/ui/toast'
 import { authQuery, setupStatusQuery } from '@/hooks/use-auth'
@@ -76,21 +77,28 @@ export function SetupPage() {
   })
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
-      <div className="w-full max-w-md">
-        <div className="mb-6 flex flex-col items-center gap-2 text-center">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-accent text-lg font-bold text-accent-foreground">
-            e
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-10">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(65%_45%_at_50%_-5%,var(--accent-soft),transparent_72%)]"
+      />
+
+      <div className="relative w-full max-w-md">
+        <div className="mb-6 flex flex-col items-center gap-3 text-center">
+          <LogoMark className="size-11" />
+          <div className="flex flex-col gap-1">
+            <h1 className="text-lg font-semibold tracking-[-0.02em] text-foreground">
+              Set up ebox
+            </h1>
+            <p className="max-w-sm text-ui text-muted">
+              Create the admin account for this panel. There are no defaults, this account owns
+              everything.
+            </p>
           </div>
-          <h1 className="text-xl font-semibold tracking-tight">Set up ebox</h1>
-          <p className="max-w-sm text-sm text-muted">
-            Create the admin account for this panel. There are no defaults — this account owns
-            everything.
-          </p>
         </div>
 
         <form
-          className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-5 shadow-sm"
+          className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-5"
           onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
         >
           <Field label="Name" error={form.formState.errors.name?.message}>
@@ -147,10 +155,10 @@ export function SetupPage() {
             </Field>
           </div>
 
-          <div className="flex items-center justify-between rounded-lg border border-border px-3 py-2.5">
-            <div className="flex flex-col">
-              <span className="text-sm text-foreground">Advanced</span>
-              <span className="text-xs text-subtle">Panel domain and TLS email (optional)</span>
+          <div className="flex items-center justify-between rounded-control border border-border px-3 py-2.5">
+            <div className="flex flex-col gap-0.5">
+              <span className="text-ui text-foreground">Advanced</span>
+              <span className="text-2xs text-subtle">Panel domain and TLS email (optional)</span>
             </div>
             <Switch
               checked={showAdvanced}
@@ -200,8 +208,8 @@ export function SetupPage() {
           </Button>
         </form>
 
-        <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-subtle">
-          <ServerCog aria-hidden className="size-3.5" />
+        <p className="mt-4 flex items-center justify-center gap-1.5 text-2xs text-subtle">
+          <IconServer aria-hidden className="size-3.5" />
           Designed for a single personal server
         </p>
       </div>

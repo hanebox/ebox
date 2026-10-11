@@ -8,6 +8,7 @@ import { api } from '@/api/endpoints'
 import { Button } from '@/components/ui/button'
 import { Field } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import { LogoMark } from '@/components/ui/logo'
 import { toast } from '@/components/ui/toast'
 import { authQuery } from '@/hooks/use-auth'
 import { ApiError } from '@/lib/api'
@@ -43,18 +44,25 @@ export function LoginPage() {
   })
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-10">
-      <div className="w-full max-w-sm">
-        <div className="mb-6 flex flex-col items-center gap-2 text-center">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-accent text-lg font-bold text-accent-foreground">
-            e
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-4 py-10">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(65%_45%_at_50%_-5%,var(--accent-soft),transparent_72%)]"
+      />
+
+      <div className="relative w-full max-w-sm">
+        <div className="mb-6 flex flex-col items-center gap-3 text-center">
+          <LogoMark className="size-11" />
+          <div className="flex flex-col gap-1">
+            <h1 className="text-lg font-semibold tracking-[-0.02em] text-foreground">
+              Sign in to ebox
+            </h1>
+            <p className="text-ui text-muted">Your personal server control plane</p>
           </div>
-          <h1 className="text-xl font-semibold tracking-tight">Sign in to ebox</h1>
-          <p className="text-sm text-muted">Your personal server control plane</p>
         </div>
 
         <form
-          className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-5 shadow-sm"
+          className="flex flex-col gap-4 rounded-panel border border-border bg-surface p-5"
           onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
         >
           <Field label="Email" error={form.formState.errors.email?.message}>

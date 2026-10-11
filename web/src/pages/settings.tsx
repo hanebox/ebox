@@ -262,7 +262,7 @@ function SessionsSection() {
               <TableHead>IP</TableHead>
               <TableHead>Last seen</TableHead>
               <TableHead>Expires</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead className="text-end">Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -285,7 +285,7 @@ function SessionsSection() {
                 <TableCell className="text-xs whitespace-nowrap text-muted">
                   {formatDateTime(session.expires_at)}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-end">
                   {session.current ? null : (
                     <Button
                       variant="ghost"

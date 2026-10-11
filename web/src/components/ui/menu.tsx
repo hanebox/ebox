@@ -23,8 +23,9 @@ export function DropdownMenu({
         <BaseMenu.Positioner align={align} sideOffset={sideOffset} className="z-50">
           <BaseMenu.Popup
             className={cn(
-              'min-w-44 rounded-lg border border-border bg-surface-overlay p-1 shadow-popover outline-none',
-              'transition-all duration-100 data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0',
+              'min-w-44 rounded-control border border-border bg-surface-overlay p-1 shadow-popover outline-none',
+              'origin-[var(--transform-origin)] transition-[opacity,transform] duration-100 ease-out-quint',
+              'data-ending-style:scale-[0.97] data-ending-style:opacity-0 data-starting-style:scale-[0.97] data-starting-style:opacity-0',
             )}
           >
             <BaseMenu.Viewport>{children}</BaseMenu.Viewport>
@@ -55,10 +56,12 @@ export function DropdownItem({
       onClick={closeOnClick ? onClick : undefined}
       disabled={disabled}
       className={cn(
-        'flex cursor-default items-center gap-2 rounded-md px-2 py-1.5 text-sm outline-none select-none',
+        'hit-area flex cursor-pointer items-center gap-2 rounded-tile px-2 py-1.5 text-ui outline-none',
         'data-highlighted:bg-surface-raised',
         danger ? 'text-danger data-highlighted:text-danger' : 'text-foreground',
         'data-disabled:pointer-events-none data-disabled:opacity-50',
+        '[&_svg]:size-3.5 [&_svg]:text-subtle',
+        danger && '[&_svg]:text-danger',
       )}
     >
       {children}
@@ -72,7 +75,7 @@ export function DropdownSeparator() {
 
 export function DropdownLabel({ children }: { children: ReactNode }) {
   return (
-    <BaseMenu.GroupLabel className="px-2 py-1 text-[11px] font-medium text-subtle">
+    <BaseMenu.GroupLabel className="truncate px-2 py-1 text-2xs text-subtle">
       {children}
     </BaseMenu.GroupLabel>
   )

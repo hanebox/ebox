@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Layers, Plus } from 'lucide-react'
+import { IconPlus, IconStack2 } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -53,16 +53,16 @@ function ServiceCard({ service }: { service: ServiceResponse }) {
     <Link
       to="/services/$serviceId"
       params={{ serviceId: service.uuid }}
-      className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-accent/60"
+      className="flex flex-col gap-3 rounded-xl border border-border bg-surface p-4 transition-colors hover:border-border-strong"
     >
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2.5">
           <span className="flex size-8 items-center justify-center rounded-lg bg-accent-soft text-accent">
-            <Layers aria-hidden className="size-4" />
+            <IconStack2 aria-hidden className="size-4" />
           </span>
           <div className="flex min-w-0 flex-col">
             <span className="truncate text-sm font-medium text-foreground">{service.name}</span>
-            <span className="truncate text-[11px] text-subtle">
+            <span className="truncate text-2xs text-subtle">
               {service.source === 'git' ? `${service.repository || 'repository'} · ${service.branch}` : 'inline compose'}
             </span>
           </div>
@@ -77,7 +77,7 @@ function ServiceCard({ service }: { service: ServiceResponse }) {
         {(service.runtime?.services ?? []).map((item) => (
           <span
             key={item.name}
-            className="rounded-md border border-border px-1.5 py-0.5 font-mono text-[10px] text-muted"
+            className="rounded-md border border-border px-1.5 py-0.5 font-mono text-2xs text-muted"
           >
             {item.name}
             <span className={item.state === 'running' ? 'text-success' : 'text-subtle'}> · {item.state}</span>
@@ -85,7 +85,7 @@ function ServiceCard({ service }: { service: ServiceResponse }) {
         ))}
       </div>
 
-      <span className="text-[11px] text-subtle">
+      <span className="text-2xs text-subtle">
         {service.last_deployed_at ? `deployed ${formatRelative(service.last_deployed_at)}` : 'never deployed'}
       </span>
     </Link>
@@ -282,7 +282,7 @@ export function ServicesPage() {
         description="Compose stacks: databases, workers, queues and anything else you run alongside your apps."
         actions={
           <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-            <Plus aria-hidden className="size-3.5" />
+            <IconPlus aria-hidden className="size-3.5" />
             New service
           </Button>
         }
@@ -298,12 +298,12 @@ export function ServicesPage() {
       {services.isSuccess && rows.length === 0 ? (
         <Card className="p-6">
           <EmptyState
-            icon={<Layers aria-hidden />}
+            icon={<IconStack2 aria-hidden />}
             title="No services yet"
             description="Paste a compose file or point ebox at one in your repository."
             action={
               <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-                <Plus aria-hidden className="size-3.5" />
+                <IconPlus aria-hidden className="size-3.5" />
                 New service
               </Button>
             }
@@ -334,12 +334,12 @@ export function ServicesPage() {
                 (service.runtime?.services ?? []).map((item) => (
                   <TableRow key={`${service.uuid}-${item.name}`}>
                     <TableCell className="text-xs text-foreground">{service.name}</TableCell>
-                    <TableCell className="font-mono text-[11px] text-muted">{item.name}</TableCell>
+                    <TableCell className="font-mono text-2xs text-muted">{item.name}</TableCell>
                     <TableCell>
                       <Badge variant={item.state === 'running' ? 'success' : 'outline'}>{item.state}</Badge>
                     </TableCell>
-                    <TableCell className="font-mono text-[11px] text-muted">{item.image ?? '—'}</TableCell>
-                    <TableCell className="font-mono text-[11px] text-muted">
+                    <TableCell className="font-mono text-2xs text-muted">{item.image ?? '—'}</TableCell>
+                    <TableCell className="font-mono text-2xs text-muted">
                       {(item.ports ?? []).join(', ') || '—'}
                     </TableCell>
                   </TableRow>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { History, Play, Plus } from 'lucide-react'
+import { IconHistory, IconPlayerPlay, IconPlus } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -51,7 +51,7 @@ export function DatabaseBackups({ databaseId }: { databaseId: string; databaseNa
       {backups.isPending ? <Skeleton className="h-20" /> : null}
 
       {backups.isSuccess && rows.length === 0 ? (
-        <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-xs text-muted">
+        <p className="hatch rounded-control border border-border px-4 py-6 text-center text-xs text-muted">
           No backup schedule targets this database yet.
         </p>
       ) : null}
@@ -69,19 +69,19 @@ export function DatabaseBackups({ databaseId }: { databaseId: string; databaseNa
               ) : null}
               <Badge variant={backup.enabled ? 'info' : 'outline'}>{backup.enabled ? 'scheduled' : 'paused'}</Badge>
             </div>
-            <span className="text-[11px] text-subtle">
+            <span className="text-2xs text-subtle">
               {backup.schedule_hint || backup.schedule} · keep {backup.retention} ·{' '}
               {backup.last_run_at ? `last run ${formatRelative(backup.last_run_at)}` : 'never run'}
             </span>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="secondary" size="sm" loading={run.isPending} onClick={() => run.mutate(backup)}>
-              <Play aria-hidden className="size-3.5" />
+              <IconPlayerPlay aria-hidden className="size-3.5" />
               Run now
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setHistoryUUID(backup.uuid)}>
-              <History aria-hidden className="size-3.5" />
-              History
+              <IconHistory aria-hidden className="size-3.5" />
+              IconHistory
             </Button>
           </div>
         </div>
@@ -89,7 +89,7 @@ export function DatabaseBackups({ databaseId }: { databaseId: string; databaseNa
 
       <div className="flex justify-end">
         <Button variant="secondary" size="sm" onClick={() => setDialogOpen(true)}>
-          <Plus aria-hidden className="size-3.5" />
+          <IconPlus aria-hidden className="size-3.5" />
           Schedule a backup
         </Button>
       </div>

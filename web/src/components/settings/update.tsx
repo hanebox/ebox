@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Download, RefreshCw, RotateCcw } from 'lucide-react'
+import { IconDownload, IconRefresh, IconRotateClockwise } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -73,7 +73,7 @@ export function UpdateSection() {
         <div className="flex items-center gap-2">
           {data?.update_available ? <Badge variant="info">update available</Badge> : null}
           <Button variant="secondary" size="sm" loading={check.isPending} onClick={() => check.mutate()}>
-            <RefreshCw aria-hidden className="size-3.5" />
+            <IconRefresh aria-hidden className="size-3.5" />
             Check now
           </Button>
         </div>
@@ -109,13 +109,13 @@ export function UpdateSection() {
             </dl>
 
             {data.check_error ? (
-              <p className="rounded-lg border border-warning/40 bg-warning-soft px-3 py-2 text-[11px] text-warning">
+              <p className="rounded-lg border border-warning/40 bg-warning-soft px-3 py-2 text-2xs text-warning">
                 {data.check_error}
               </p>
             ) : null}
 
             {!data.self_updateable && data.reason ? (
-              <p className="rounded-lg border border-border px-3 py-2 text-[11px] text-subtle">{data.reason}</p>
+              <p className="rounded-lg border border-border px-3 py-2 text-2xs text-subtle">{data.reason}</p>
             ) : null}
 
             {data.latest?.notes ? (
@@ -123,7 +123,7 @@ export function UpdateSection() {
                 <summary className="cursor-pointer text-xs text-foreground">
                   Release notes for {data.latest.version}
                 </summary>
-                <pre className="mt-2 max-h-56 overflow-auto font-mono text-[11px] whitespace-pre-wrap text-muted">
+                <pre className="mt-2 max-h-56 overflow-auto font-mono text-2xs whitespace-pre-wrap text-muted">
                   {data.latest.notes}
                 </pre>
               </details>
@@ -131,7 +131,7 @@ export function UpdateSection() {
 
             <div className="flex flex-wrap justify-end gap-2">
               <Button variant="ghost" size="sm" onClick={() => setRollbackOpen(true)}>
-                <RotateCcw aria-hidden className="size-3.5" />
+                <IconRotateClockwise aria-hidden className="size-3.5" />
                 Roll back
               </Button>
               <Button
@@ -140,12 +140,12 @@ export function UpdateSection() {
                 disabled={!data.self_updateable || !data.update_available}
                 onClick={() => setApplyOpen(true)}
               >
-                <Download aria-hidden className="size-3.5" />
+                <IconDownload aria-hidden className="size-3.5" />
                 {data.update_available ? `Install ${data.latest?.version ?? ''}` : 'Up to date'}
               </Button>
             </div>
 
-            <p className="text-[10px] text-subtle">
+            <p className="text-2xs text-subtle">
               Last checked {formatDateTime(data.checked_at)}
             </p>
           </>

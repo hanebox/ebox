@@ -98,8 +98,8 @@ export function AreaChart({
         <svg width={width} height={height} role="img" className="block overflow-visible">
           <defs>
             <linearGradient id={`area-${id}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={color} stopOpacity="0.22" />
-              <stop offset="100%" stopColor={color} stopOpacity="0.02" />
+              <stop offset="0%" stopColor={color} stopOpacity="0.28" />
+              <stop offset="100%" stopColor={color} stopOpacity="0" />
             </linearGradient>
           </defs>
 
@@ -111,13 +111,12 @@ export function AreaChart({
                 y1={line.y}
                 y2={line.y}
                 stroke="var(--border)"
-                strokeDasharray="3 4"
               />
               <text
                 x={chart.padding.left - 6}
                 y={line.y + 3}
                 textAnchor="end"
-                className="fill-[var(--subtle)] text-[10px]"
+                className="tabular fill-[var(--subtle)] text-2xs"
               >
                 {line.label}
               </text>
@@ -125,23 +124,32 @@ export function AreaChart({
           ))}
 
           <path d={chart.area} fill={`url(#area-${id})`} />
-          <path d={chart.line} fill="none" stroke={color} strokeWidth="1.5" />
+          <path
+            d={chart.line}
+            fill="none"
+            stroke={color}
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
 
-          <text x={chart.padding.left} y={height - 6} className="fill-[var(--subtle)] text-[10px]">
+          <text x={chart.padding.left} y={height - 6} className="fill-[var(--subtle)] text-2xs">
             {formatDateTime(chart.first)}
           </text>
           <text
             x={chart.padding.left + chart.innerWidth}
             y={height - 6}
             textAnchor="end"
-            className="fill-[var(--subtle)] text-[10px]"
+            className="fill-[var(--subtle)] text-2xs"
           >
             {formatDateTime(chart.last)}
           </text>
         </svg>
       ) : (
-        <div className="flex h-full items-center justify-center text-xs text-subtle">
-          Collecting data…
+        <div className="hatch flex h-full items-center justify-center rounded-control border border-border">
+          <span className="rounded-full border border-border bg-background px-3 py-1 text-2xs text-subtle">
+            Collecting samples…
+          </span>
         </div>
       )}
     </div>

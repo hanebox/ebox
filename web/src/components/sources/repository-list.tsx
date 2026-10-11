@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { ChevronDown, ChevronRight, Lock, RefreshCw, Search } from 'lucide-react'
+import { IconChevronDown, IconChevronRight, IconLock, IconRefresh, IconSearch } from '@tabler/icons-react'
 import { useMemo, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -33,19 +33,19 @@ function RepositoryRow({
       <button
         type="button"
         onClick={() => setExpanded((value) => !value)}
-        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-surface-raised"
+        className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-start transition-colors hover:bg-surface-raised"
       >
         {expanded ? (
-          <ChevronDown aria-hidden className="size-3.5 shrink-0 text-subtle" />
+          <IconChevronDown aria-hidden className="size-3.5 shrink-0 text-subtle" />
         ) : (
-          <ChevronRight aria-hidden className="size-3.5 shrink-0 text-subtle" />
+          <IconChevronRight aria-hidden className="size-3.5 shrink-0 text-subtle" />
         )}
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <div className="flex items-center gap-2">
             <span className="truncate text-sm text-foreground">{repository.full_name}</span>
             {repository.private ? (
               <Badge variant="outline" className="gap-1">
-                <Lock aria-hidden className="size-2.5" />
+                <IconLock aria-hidden className="size-2.5" />
                 private
               </Badge>
             ) : (
@@ -57,13 +57,13 @@ function RepositoryRow({
           ) : null}
         </div>
         <div className="hidden shrink-0 items-center gap-3 sm:flex">
-          <span className="font-mono text-[11px] text-muted">{repository.default_branch}</span>
-          <span className="text-[11px] text-subtle">{formatRelative(repository.updated_at)}</span>
+          <span className="font-mono text-2xs text-muted">{repository.default_branch}</span>
+          <span className="text-2xs text-subtle">{formatRelative(repository.updated_at)}</span>
         </div>
       </button>
 
       {expanded ? (
-        <div className="mb-2 ml-9 rounded-lg border border-border bg-surface-raised/50 p-2">
+        <div className="mb-2 ms-9 rounded-lg border border-border bg-surface-raised/50 p-2">
           {branches.isPending ? (
             <div className="flex flex-col gap-1.5 p-1">
               <Skeleton className="h-5 w-40" />
@@ -82,7 +82,7 @@ function RepositoryRow({
               {branches.data.map((branch) => (
                 <span
                   key={branch.name}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-[11px] text-muted"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-2 py-0.5 font-mono text-2xs text-muted"
                 >
                   {branch.name}
                   {branch.default ? <Badge variant="info">default</Badge> : null}
@@ -122,7 +122,7 @@ export function RepositoryList({ source }: { source: Source }) {
   if (!source.installation_id) {
     return (
       <EmptyState
-        icon={<Lock aria-hidden />}
+        icon={<IconLock aria-hidden />}
         title="No installation connected"
         description="Install the GitHub App on the repositories you want to deploy, then connect the installation."
       />
@@ -133,15 +133,15 @@ export function RepositoryList({ source }: { source: Source }) {
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2">
         <div className="relative max-w-xs flex-1">
-          <Search
+          <IconSearch
             aria-hidden
-            className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-subtle"
+            className="pointer-events-none absolute top-1/2 start-2.5 size-3.5 -translate-y-1/2 text-subtle"
           />
           <Input
             value={search}
             onChange={(event) => setSearch(event.target.value)}
             placeholder="Filter repositories…"
-            className="pl-8"
+            className="ps-8"
           />
         </div>
         <Button
@@ -150,7 +150,7 @@ export function RepositoryList({ source }: { source: Source }) {
           onClick={() => void repositories.refetch()}
           loading={repositories.isFetching}
         >
-          <RefreshCw aria-hidden className="size-3.5" />
+          <IconRefresh aria-hidden className="size-3.5" />
           Refresh
         </Button>
         <span className="text-xs text-subtle">

@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Archive, History, Play, Plus, Trash2 } from 'lucide-react'
+import { IconArchive, IconHistory, IconPlayerPlay, IconPlus, IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -57,7 +57,7 @@ function BackupCard({ backup }: { backup: BackupRecord }) {
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 flex-col">
           <span className="truncate text-sm font-medium text-foreground">{backup.name}</span>
-          <span className="truncate text-[11px] text-subtle">
+          <span className="truncate text-2xs text-subtle">
             {backup.target === 'database' ? 'Database' : 'Volume'} · {backup.schedule_hint || backup.schedule} · keep{' '}
             {backup.retention}
           </span>
@@ -70,26 +70,26 @@ function BackupCard({ backup }: { backup: BackupRecord }) {
         </div>
       </div>
 
-      <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-subtle">
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-2xs text-subtle">
         <span>{backup.last_run_at ? `last run ${formatRelative(backup.last_run_at)}` : 'never run'}</span>
         {backup.next_run_at ? <span>next {formatRelative(backup.next_run_at)}</span> : null}
       </div>
 
       {backup.last_error ? (
-        <p className="max-h-16 overflow-hidden font-mono text-[10px] text-danger">{backup.last_error}</p>
+        <p className="max-h-16 overflow-hidden font-mono text-2xs text-danger">{backup.last_error}</p>
       ) : null}
 
       <div className="flex flex-wrap justify-end gap-2">
         <Button variant="secondary" size="sm" loading={run.isPending} onClick={() => run.mutate()}>
-          <Play aria-hidden className="size-3.5" />
+          <IconPlayerPlay aria-hidden className="size-3.5" />
           {run.isPending ? 'Running…' : 'Run now'}
         </Button>
         <Button variant="ghost" size="sm" onClick={() => setHistoryOpen(true)}>
-          <History aria-hidden className="size-3.5" />
-          History
+          <IconHistory aria-hidden className="size-3.5" />
+          IconHistory
         </Button>
         <Button variant="ghost" size="sm" aria-label="Delete backup" onClick={() => remove.mutate()}>
-          <Trash2 aria-hidden className="size-3.5" />
+          <IconTrash aria-hidden className="size-3.5" />
         </Button>
       </div>
 
@@ -123,7 +123,7 @@ export function BackupsPage() {
         description="Scheduled dumps of your databases and archives of your volumes."
         actions={
           <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-            <Plus aria-hidden className="size-3.5" />
+            <IconPlus aria-hidden className="size-3.5" />
             New backup
           </Button>
         }
@@ -139,12 +139,12 @@ export function BackupsPage() {
       {backups.isSuccess && rows.length === 0 ? (
         <Card className="p-6">
           <EmptyState
-            icon={<Archive aria-hidden />}
+            icon={<IconArchive aria-hidden />}
             title="No backups yet"
             description="Schedule a nightly dump for a database, or archive a volume."
             action={
               <Button variant="primary" size="sm" onClick={() => setDialogOpen(true)}>
-                <Plus aria-hidden className="size-3.5" />
+                <IconPlus aria-hidden className="size-3.5" />
                 New backup
               </Button>
             }
@@ -160,7 +160,7 @@ export function BackupsPage() {
         </div>
       ) : null}
 
-      <p className="text-[11px] text-subtle">
+      <p className="text-2xs text-subtle">
         Archives live in the panel data directory. Need a database backed up on demand instead?{' '}
         <Link to="/databases" className="text-accent hover:underline">
           Open a database

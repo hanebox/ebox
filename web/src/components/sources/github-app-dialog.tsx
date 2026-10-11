@@ -91,13 +91,13 @@ export function GithubAppDialog({ open, onOpenChange, onCreated }: GithubAppDial
               and paste these URLs:
             </p>
             <div className="flex flex-col gap-1.5">
-              <span className="text-[11px] font-medium text-subtle uppercase">Homepage URL</span>
+              <span className="text-2xs font-medium text-subtle">Homepage URL</span>
               <Copyable value={origin} />
-              <span className="mt-1 text-[11px] font-medium text-subtle uppercase">
+              <span className="mt-1 text-2xs font-medium text-subtle">
                 Callback URL
               </span>
               <Copyable value={`${origin}/api/v1/github/callback`} />
-              <span className="mt-1 text-[11px] font-medium text-subtle uppercase">
+              <span className="mt-1 text-2xs font-medium text-subtle">
                 Webhook URL
               </span>
               <Copyable value={`${origin}/api/v1/webhooks/github`} />

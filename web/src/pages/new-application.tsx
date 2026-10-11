@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Link, useNavigate, useParams } from '@tanstack/react-router'
-import { ArrowLeft, Boxes, FileCode2, Globe2, Loader2, Search } from 'lucide-react'
+import { IconArrowLeft, IconBox, IconFileCode2, IconLoader2, IconSearch, IconWorld } from '@tabler/icons-react'
 import { useMemo, useState } from 'react'
 import { useForm, useWatch } from 'react-hook-form'
 import { z } from 'zod'
@@ -108,15 +108,15 @@ function RepositoryPicker({
   return (
     <div className="flex flex-col gap-2">
       <div className="relative">
-        <Search
+        <IconSearch
           aria-hidden
-          className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-subtle"
+          className="pointer-events-none absolute top-1/2 start-2.5 size-3.5 -translate-y-1/2 text-subtle"
         />
         <Input
           value={search}
           onChange={(event) => setSearch(event.target.value)}
           placeholder="Filter repositories…"
-          className="pl-8"
+          className="ps-8"
         />
       </div>
 
@@ -137,13 +137,13 @@ function RepositoryPicker({
             key={repository.full_name}
             onClick={() => onSelect(repository)}
             className={cn(
-              'flex w-full items-center justify-between gap-3 border-b border-border/60 px-3 py-2 text-left last:border-b-0 transition-colors',
+              'flex w-full items-center justify-between gap-3 border-b border-border/60 px-3 py-2 text-start last:border-b-0 transition-colors',
               value === repository.full_name ? 'bg-accent-soft' : 'hover:bg-surface-raised',
             )}
           >
             <span className="flex min-w-0 flex-col">
               <span className="truncate text-xs text-foreground">{repository.full_name}</span>
-              <span className="truncate text-[11px] text-subtle">
+              <span className="truncate text-2xs text-subtle">
                 {repository.description || repository.default_branch}
               </span>
             </span>
@@ -186,7 +186,7 @@ function BranchPicker({
     <div className="flex flex-col gap-2">
       {branches.isPending ? (
         <div className="flex items-center gap-2 text-xs text-muted">
-          <Loader2 aria-hidden className="size-3.5 animate-spin" />
+          <IconLoader2 aria-hidden className="size-3.5 animate-spin" />
           Loading branches…
         </div>
       ) : null}
@@ -285,7 +285,7 @@ export function NewApplicationPage() {
           params={{ projectId }}
           className="inline-flex items-center gap-1.5 text-xs text-muted transition-colors hover:text-foreground"
         >
-          <ArrowLeft aria-hidden className="size-3.5" />
+          <IconArrowLeft aria-hidden className="size-3.5" />
           {project.data?.name ?? 'Project'}
         </Link>
       </div>
@@ -588,7 +588,7 @@ export function NewApplicationPage() {
                   <label className="text-sm text-foreground" htmlFor="auto-deploy">
                     Deploy on push
                   </label>
-                  <span className="text-[11px] text-subtle">
+                  <span className="text-2xs text-subtle">
                     Requires the GitHub App webhook (set up automatically by the manifest flow).
                   </span>
                 </div>
@@ -613,7 +613,7 @@ export function NewApplicationPage() {
 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <p className="flex items-center gap-2 text-xs text-subtle">
-              <Boxes aria-hidden className="size-3.5" />
+              <IconBox aria-hidden className="size-3.5" />
               The first deployment starts right after creation.
             </p>
             <div className="flex items-center gap-2">
@@ -623,7 +623,7 @@ export function NewApplicationPage() {
                 </Button>
               </Link>
               <Button type="submit" variant="primary" loading={create.isPending}>
-                <FileCode2 aria-hidden className="size-3.5" />
+                <IconFileCode2 aria-hidden className="size-3.5" />
                 Create and deploy
               </Button>
             </div>
@@ -635,7 +635,7 @@ export function NewApplicationPage() {
 
       {sources.data && sources.data.length > 0 ? (
         <p className="flex items-center gap-2 text-xs text-subtle">
-          <Globe2 aria-hidden className="size-3.5" />
+          <IconWorld aria-hidden className="size-3.5" />
           Domains are routed through Traefik once the proxy milestone is wired up.
         </p>
       ) : null}

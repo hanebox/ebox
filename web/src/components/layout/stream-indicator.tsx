@@ -15,7 +15,7 @@ export function StreamIndicator() {
 
   return (
     <Tooltip content="Realtime event stream (SSE)">
-      <span className="inline-flex h-8.5 items-center gap-2 rounded-lg border border-border px-2.5 text-xs text-muted">
+      <span className="inline-flex h-7 items-center gap-2 rounded-full bg-surface px-2.5 text-2xs text-muted shadow-border">
         <StatusDot variant={meta.variant} pulse={status !== 'open'} />
         {meta.text}
       </span>

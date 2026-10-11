@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { AnsiUp } from 'ansi_up'
-import { ArrowDownToLine, Eraser } from 'lucide-react'
+import { IconArrowDown, IconEraser } from '@tabler/icons-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -136,15 +136,15 @@ export function DeploymentLog({ deploymentId, status, onStatusChange, className 
   const running = status === 'queued' || status === 'building' || status === 'deploying'
 
   return (
-    <div className={cn('flex flex-col overflow-hidden rounded-lg border border-border bg-[#0b0b12]', className)}>
+    <div className={cn('flex flex-col overflow-hidden rounded-control border border-border bg-[#0a0a0d]', className)}>
       <div className="flex items-center justify-between gap-2 border-b border-border bg-surface-raised px-3 py-1.5">
-        <div className="flex items-center gap-2 text-[11px] text-subtle">
+        <div className="flex items-center gap-2 text-2xs text-subtle">
           {running ? <Spinner className="[&_svg]:size-3" /> : null}
           {visible.length} lines
         </div>
         <div className="flex items-center gap-1">
           <Button variant="ghost" size="sm" onClick={() => setFollow((value) => !value)}>
-            <ArrowDownToLine aria-hidden className="size-3.5" />
+            <IconArrowDown aria-hidden className="size-3.5" />
             {follow ? 'Following' : 'Follow'}
           </Button>
           <Button
@@ -153,7 +153,7 @@ export function DeploymentLog({ deploymentId, status, onStatusChange, className 
             onClick={() => setLive({ count: 0, lines: [] })}
             disabled={live.lines.length === 0}
           >
-            <Eraser aria-hidden className="size-3.5" />
+            <IconEraser aria-hidden className="size-3.5" />
             Clear live
           </Button>
         </div>
@@ -177,7 +177,7 @@ export function DeploymentLog({ deploymentId, status, onStatusChange, className 
           <p className="py-6 text-center text-xs text-subtle">No output yet.</p>
         ) : null}
         <pre
-          className="font-mono text-[11px] leading-5 whitespace-pre-wrap text-[#c8c8d8]"
+          className="font-mono text-2xs leading-5 whitespace-pre-wrap text-[#c9c9cd]"
           dangerouslySetInnerHTML={{ __html: html }}
         />
       </div>

@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { Rocket } from 'lucide-react'
+import { IconRocket } from '@tabler/icons-react'
 import { useMemo } from 'react'
 
 import { api } from '@/api/endpoints'
 import { DeploymentTable } from '@/components/applications/deployment-table'
 import { PageHeader } from '@/components/layout/page-header'
+import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -41,12 +42,12 @@ export function DeploymentsPage() {
         description="Every build and release, with streamed logs. Newest first."
       />
 
-      <div className="flex flex-wrap gap-3 text-xs text-muted">
-        <span className="rounded-lg border border-border px-3 py-1.5">{summary.total} recent</span>
-        <span className="rounded-lg border border-border px-3 py-1.5">
+      <div className="flex flex-wrap items-center gap-2">
+        <Badge variant="default">{summary.total} recent</Badge>
+        <Badge variant={summary.running > 0 ? 'info' : 'default'}>
           {summary.running} in progress
-        </span>
-        <span className="rounded-lg border border-border px-3 py-1.5">{summary.failed} failed</span>
+        </Badge>
+        <Badge variant={summary.failed > 0 ? 'danger' : 'default'}>{summary.failed} failed</Badge>
       </div>
 
       {deployments.isPending ? (
@@ -65,7 +66,7 @@ export function DeploymentsPage() {
 
       {deployments.data && deployments.data.length === 0 ? (
         <p className="flex items-center gap-2 text-xs text-subtle">
-          <Rocket aria-hidden className="size-3.5" />
+          <IconRocket aria-hidden className="size-3.5" />
           Nothing deployed yet. Create an application in a project to get started.
         </p>
       ) : null}

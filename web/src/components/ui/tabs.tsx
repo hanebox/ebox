@@ -31,7 +31,7 @@ export function TabsList({ children, className }: { children: ReactNode; classNa
       )}
     >
       {children}
-      <BaseTabs.Indicator className="absolute bottom-0 left-0 h-0.5 rounded-full bg-accent transition-all duration-150" />
+      <BaseTabs.Indicator className="absolute bottom-0 left-[var(--active-tab-left)] h-0.5 w-[var(--active-tab-width)] rounded-full bg-accent transition-[left,width] duration-200 ease-out-quint" />
     </BaseTabs.List>
   )
 }
@@ -41,9 +41,9 @@ export function TabsTab({ value, children }: { value: string; children: ReactNod
     <BaseTabs.Tab
       value={value}
       className={cn(
-        'relative -mb-px inline-flex h-8.5 cursor-default items-center gap-1.5 border-b-2 border-transparent px-3 text-sm text-muted transition-colors select-none',
+        'hit-area relative -mb-px inline-flex h-8.5 cursor-pointer items-center gap-1.5 border-b-2 border-transparent px-2.5 text-ui text-muted transition-colors duration-150',
         'hover:text-foreground',
-        'data-selected:border-accent data-selected:text-foreground',
+        'data-selected:text-foreground',
       )}
     >
       {children}

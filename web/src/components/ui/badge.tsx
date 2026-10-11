@@ -10,7 +10,7 @@ const variantClasses: Record<BadgeVariant, string> = {
   warning: 'bg-warning-soft text-warning',
   danger: 'bg-danger-soft text-danger',
   info: 'bg-info-soft text-info',
-  outline: 'border border-border text-muted',
+  outline: 'shadow-border text-muted',
 }
 
 export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
@@ -21,7 +21,8 @@ export function Badge({ className, variant = 'default', ...props }: BadgeProps) 
   return (
     <span
       className={cn(
-        'inline-flex h-5 items-center rounded-md px-1.5 text-[11px] font-medium whitespace-nowrap',
+        'inline-flex h-5 items-center gap-1.5 rounded-full px-2 text-2xs font-medium whitespace-nowrap',
+        '[&_svg]:size-3 [&_svg]:stroke-[2]',
         variantClasses[variant],
         className,
       )}
@@ -44,9 +45,14 @@ export interface StatusDotProps extends HTMLAttributes<HTMLSpanElement> {
   pulse?: boolean
 }
 
-export function StatusDot({ className, variant = 'default', pulse = false, ...props }: StatusDotProps) {
+export function StatusDot({
+  className,
+  variant = 'default',
+  pulse = false,
+  ...props
+}: StatusDotProps) {
   return (
-    <span className={cn('relative inline-flex size-2 shrink-0', className)} {...props}>
+    <span className={cn('relative inline-flex size-1.5 shrink-0', className)} {...props}>
       {pulse ? (
         <span
           className={cn(
@@ -55,7 +61,7 @@ export function StatusDot({ className, variant = 'default', pulse = false, ...pr
           )}
         />
       ) : null}
-      <span className={cn('relative inline-flex size-2 rounded-full', dotClasses[variant])} />
+      <span className={cn('relative inline-flex size-1.5 rounded-full', dotClasses[variant])} />
     </span>
   )
 }

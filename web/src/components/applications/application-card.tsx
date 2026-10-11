@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
-import { Boxes, GitBranch, Rocket } from 'lucide-react'
+import { IconBox, IconGitBranch, IconRocket } from '@tabler/icons-react'
 import { useState } from 'react'
 
 import { api } from '@/api/endpoints'
@@ -38,14 +38,14 @@ export function ApplicationCard({ application }: { application: ApplicationWithR
   const runtime = application.runtime
 
   return (
-    <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4 shadow-sm">
+    <div className="flex flex-col gap-3 rounded-panel border border-border bg-surface p-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
           <div className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-raised text-muted">
             {application.kind === 'image' ? (
-              <Boxes aria-hidden className="size-4" />
+              <IconBox aria-hidden className="size-4" />
             ) : (
-              <Rocket aria-hidden className="size-4" />
+              <IconRocket aria-hidden className="size-4" />
             )}
           </div>
           <div className="flex min-w-0 flex-col gap-1">
@@ -64,8 +64,8 @@ export function ApplicationCard({ application }: { application: ApplicationWithR
                 appStatus={application.status}
               />
             </div>
-            <p className="flex items-center gap-1.5 truncate font-mono text-[11px] text-muted">
-              <GitBranch aria-hidden className="size-3 shrink-0" />
+            <p className="flex items-center gap-1.5 truncate font-mono text-2xs text-muted">
+              <IconGitBranch aria-hidden className="size-3 shrink-0" />
               {application.kind === 'image'
                 ? (application.config.image || 'image')
                 : `${application.repository} · ${application.branch}`}
@@ -85,7 +85,7 @@ export function ApplicationCard({ application }: { application: ApplicationWithR
           }}
           disabled={deploying}
         >
-          <Rocket aria-hidden className="size-3.5" />
+          <IconRocket aria-hidden className="size-3.5" />
           Deploy
         </Button>
         <Link to="/applications/$applicationId" params={{ applicationId: application.uuid }}>

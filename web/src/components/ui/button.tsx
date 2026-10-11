@@ -1,4 +1,4 @@
-import { Loader2 } from 'lucide-react'
+import { IconLoader2 } from '@tabler/icons-react'
 import { forwardRef, type ButtonHTMLAttributes } from 'react'
 
 import { cn } from '@/lib/cn'
@@ -7,20 +7,20 @@ export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'dan
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon'
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: 'bg-accent text-accent-foreground hover:bg-accent-hover',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary-hover',
   secondary:
-    'border border-border bg-surface-raised text-foreground hover:border-border-strong hover:bg-surface-overlay',
-  outline: 'border border-border bg-transparent text-foreground hover:bg-surface-raised',
+    'bg-surface-raised text-foreground shadow-border hover:bg-surface-overlay hover:shadow-border-hover',
+  outline: 'bg-transparent text-foreground shadow-border hover:bg-surface-raised',
   ghost: 'bg-transparent text-muted hover:bg-surface-raised hover:text-foreground',
-  danger: 'bg-danger text-white hover:opacity-90',
-  success: 'bg-success text-white hover:opacity-90',
+  danger: 'bg-danger text-background hover:bg-danger/90',
+  success: 'bg-success text-background hover:bg-success/90',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: 'h-7 gap-1.5 rounded-md px-2.5 text-xs',
-  md: 'h-8.5 gap-2 rounded-lg px-3 text-sm',
-  lg: 'h-10 gap-2 rounded-lg px-4 text-sm',
-  icon: 'h-8.5 w-8.5 rounded-lg',
+  sm: 'h-7 gap-1.5 rounded-tile px-2.5 text-xs has-[>svg:first-child]:ps-2 has-[>svg:last-child]:pe-2',
+  md: 'h-8.5 gap-1.5 rounded-control px-3 text-ui has-[>svg:first-child]:ps-2.5 has-[>svg:last-child]:pe-2.5',
+  lg: 'h-10 gap-2 rounded-control px-4 text-sm has-[>svg:first-child]:ps-3.5 has-[>svg:last-child]:pe-3.5',
+  icon: 'size-8.5 rounded-control',
 }
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -38,15 +38,17 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ref={ref}
       disabled={disabled || loading}
       className={cn(
-        'inline-flex shrink-0 select-none items-center justify-center font-medium whitespace-nowrap transition-colors',
-        'disabled:pointer-events-none disabled:opacity-50',
+        'hit-area press inline-flex shrink-0 items-center justify-center font-medium whitespace-nowrap',
+        'transition-[background-color,border-color,color,opacity,transform,box-shadow] duration-150 ease-out-quint',
+        'disabled:pointer-events-none disabled:opacity-45',
+        '[&_svg]:shrink-0 [&_svg]:stroke-[2]',
         variantClasses[variant],
         sizeClasses[size],
         className,
       )}
       {...props}
     >
-      {loading ? <Loader2 aria-hidden className="size-3.5 animate-spin" /> : null}
+      {loading ? <IconLoader2 aria-hidden className="size-3.5 animate-spin" /> : null}
       {children}
     </button>
   )
