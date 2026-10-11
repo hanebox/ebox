@@ -1,0 +1,12 @@
+.DS_Store
+
+/dist
+
+backend/storage
+backend/tmp
+
+web/node_modules
+web/dist
+
+backend/web/dist/*
+!backend/web/dist/.gitkeep

@@ -1,0 +1,26 @@
+[Unit]
+Description=ebox personal server control plane
+Documentation=https://github.com/buildandbuild/ebox
+After=docker.service network-online.target
+Wants=network-online.target
+Requires=docker.service
+
+[Service]
+Type=simple
+User=ebox
+Group=ebox
+EnvironmentFile=/etc/ebox/ebox.env
+ExecStart=/usr/local/bin/ebox
+Restart=always
+RestartSec=3
+# The panel talks to the Docker socket and manages its own binary.
+SupplementaryGroups=docker
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+# /var/lib/ebox holds the database, app checkouts and backups.
+ReadWritePaths=/var/lib/ebox /etc/ebox
+
+[Install]
+WantedBy=multi-user.target
