@@ -1,3 +1,6 @@
+# Reference copy of the unit that installer/install.sh writes to
+# /etc/systemd/system/ebox.service. The installer generates the live file from
+# the chosen data dir, so this copy exists for review and manual installs.
 [Unit]
 Description=ebox personal server control plane
 Documentation=https://github.com/buildandbuild/ebox
@@ -9,17 +12,18 @@ Requires=docker.service
 Type=simple
 User=ebox
 Group=ebox
+WorkingDirectory=/var/lib/ebox
 EnvironmentFile=/etc/ebox/ebox.env
 ExecStart=/usr/local/bin/ebox
 Restart=always
 RestartSec=3
-# The panel talks to the Docker socket and manages its own binary.
+# The panel talks to the Docker socket.
 SupplementaryGroups=docker
 NoNewPrivileges=true
 ProtectSystem=full
 ProtectHome=true
 PrivateTmp=true
-# /var/lib/ebox holds the database, app checkouts and backups.
+# Database, deployments, backups and the Traefik stack.
 ReadWritePaths=/var/lib/ebox /etc/ebox
 
 [Install]

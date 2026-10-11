@@ -26,8 +26,9 @@ make lint         # go vet + tsc
 make build        # web bundle -> embedded assets -> dist/ebox
 ```
 
-On first boot the panel serves a setup wizard at `/setup` that creates the
-admin account. There are no default credentials.
+The installer creates the admin account during setup. If that is skipped
+(`--no-admin` or no terminal), the first boot serves a setup wizard at
+`/setup` that creates it instead. There are no default credentials.
 
 ## Install
 
@@ -37,10 +38,17 @@ On a Linux host with systemd and Docker:
 curl -fsSL https://raw.githubusercontent.com/buildandbuild/ebox/main/installer/install.sh | sudo bash
 ```
 
-The installer creates the `ebox` user, generates `APP_KEY`, installs the binary
-to `/usr/local/bin/ebox` and the systemd unit to `/etc/systemd/system/ebox.service`.
-Open the printed URL, for example `http://127.0.0.1:8000/setup`, to create the
-admin account.
+The installer checks the host first — Docker CLI, daemon and compose plugin,
+systemd, free ports, disk space, network, git and ssh — and prints a checklist
+with fix hints for anything missing. It then creates the `ebox` user, generates
+`APP_KEY`, installs the binary to `/usr/local/bin/ebox`, writes
+`/etc/ebox/ebox.env` and the systemd unit, and asks for the admin account:
+display name, email and a password of at least 10 characters.
+
+The account is created through the panel's local API right after the service
+starts, so the setup wizard is never left open to the network. If there is no
+terminal to prompt on, or `--no-admin` is passed, the wizard at `/setup`
+remains available instead.
 
 | Flag | Purpose |
 | --- | --- |
@@ -50,6 +58,17 @@ admin account.
 | `--port 9000` | panel port |
 | `--data-dir /srv/ebox` | data, deployments and backups |
 | `--no-start` | install without starting the service |
+| `--no-admin` | skip admin account creation and finish at `/setup` |
+| `--admin-name`, `--admin-email`, `--admin-password` | create the account without prompting |
+| `--no-color` | plain output (also honours `NO_COLOR`) |
+| `--force` | no confirmations; continue past failed checks |
+
+Unattended install (flags are also the escape hatch when there is no TTY):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/buildandbuild/ebox/main/installer/install.sh | sudo bash -s -- \
+  --admin-name "Admin" --admin-email you@example.com --admin-password "$EBOX_ADMIN_PASSWORD"
+```
 
 The panel updates itself from the **Settings → About → Updates** card: it
 downloads the release asset, verifies the published checksum, swaps the binary
